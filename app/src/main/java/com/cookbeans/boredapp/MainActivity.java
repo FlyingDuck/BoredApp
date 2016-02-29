@@ -1,9 +1,12 @@
 package com.cookbeans.boredapp;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,13 +20,28 @@ import android.view.MenuItem;
 import com.cookbeans.boredapp.fragment.SampleSlidingTabsFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener ,
+        SampleSlidingTabsFragment.Callback{
+
+    private static final String TAG = "MainActivity";
+
+    private AppBarLayout appBarLayout;
+    private CollapsingToolbarLayout toolbarLayout;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // app bar
+        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+
+        // toolbar layout
+        toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+
+        // toolbar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -110,5 +128,17 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void changeToolbarLayoutBackGround(int appBarBackGroundColor) {
+        Log.d(TAG, "change toolbar layout ground color");
+        toolbarLayout.setBackgroundColor(appBarBackGroundColor);
+    }
+
+    @Override
+    public void changeToolbarLayoutScrimColor(int color) {
+        Log.d(TAG, "change toolbar layout scrim ground color");
+        toolbarLayout.setContentScrimColor(color);
     }
 }

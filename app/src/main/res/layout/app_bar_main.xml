@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:background="@color/colorPrimary"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="?attr/colorPrimaryDark"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways">
 
             <!--<ImageView-->

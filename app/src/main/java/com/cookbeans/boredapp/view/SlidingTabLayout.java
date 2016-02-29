@@ -17,17 +17,22 @@
 package com.cookbeans.boredapp.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.cookbeans.boredapp.fragment.SampleSlidingTabsFragment;
 
 /**
  * To be used with ViewPager to provide a tab indicator component which give constant feedback as to
@@ -46,6 +51,7 @@ import android.widget.TextView;
  * providing the layout ID of your custom layout.
  */
 public class SlidingTabLayout extends HorizontalScrollView {
+    private static final String TAG = "SlidingTabLayout";
 
     /**
      * Allows complete control over the colors drawn in the tab layout. Set with
@@ -62,12 +68,11 @@ public class SlidingTabLayout extends HorizontalScrollView {
          * @return return the color of the divider drawn to the right of {@code position}.
          */
         int getDividerColor(int position);
-
     }
 
     private static final int TITLE_OFFSET_DIPS = 24;
     private static final int TAB_VIEW_PADDING_DIPS = 16;
-    private static final int TAB_VIEW_TEXT_SIZE_SP = 12;
+    private static final int TAB_VIEW_TEXT_SIZE_SP = 16;
 
     private int mTitleOffset;
 
@@ -78,6 +83,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
 
     private final SlidingTabStrip mTabStrip;
+
+    private int mCurrentPosition = 0;
+
+    private SampleSlidingTabsFragment.Callback mSlidingTabCallBack;
 
     public SlidingTabLayout(Context context) {
         this(context, null);
@@ -99,6 +108,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
         mTabStrip = new SlidingTabStrip(context);
         addView(mTabStrip, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+    }
+
+    public void setSlidingTabCallBack(SampleSlidingTabsFragment.Callback callBack) {
+        mSlidingTabCallBack = callBack;
     }
 
     /**
@@ -171,6 +184,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
     protected TextView createDefaultTabView(Context context) {
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
+        textView.setTextColor(Color.WHITE);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP);
         textView.setTypeface(Typeface.DEFAULT_BOLD);
 
@@ -191,11 +205,15 @@ public class SlidingTabLayout extends HorizontalScrollView {
         int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
         textView.setPadding(padding, padding, padding, padding);
 
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F);
+        textView.setLayoutParams(layoutParams);
+
         return textView;
     }
 
     private void populateTabStrip() {
-        final PagerAdapter adapter = mViewPager.getAdapter();
+        final SampleSlidingTabsFragment.SampleFragmentPagerAdapter adapter =
+                (SampleSlidingTabsFragment.SampleFragmentPagerAdapter) mViewPager.getAdapter();
         final OnClickListener tabClickListener = new TabClickListener();
 
         for (int i = 0; i < adapter.getCount(); i++) {
@@ -221,6 +239,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
             mTabStrip.addView(tabView);
         }
+
+        changeLayoutBackGround();
     }
 
     @Override
@@ -251,11 +271,21 @@ public class SlidingTabLayout extends HorizontalScrollView {
         }
     }
 
+    private void changeLayoutBackGround() {
+        SampleSlidingTabsFragment.SampleFragmentPagerAdapter adapter = (SampleSlidingTabsFragment.SampleFragmentPagerAdapter) mViewPager.getAdapter();
+        int[] bgColors = adapter.getToolbarAndTabBGColor(mCurrentPosition);
+        setBackgroundColor(bgColors[0]);
+        mSlidingTabCallBack.changeToolbarLayoutBackGround(bgColors[1]);
+        mSlidingTabCallBack.changeToolbarLayoutScrimColor(bgColors[2]);
+//        mSlidingTabCallBack.changeToolBarBackGround();
+    }
+
     private class InternalViewPagerListener implements ViewPager.OnPageChangeListener {
         private int mScrollState;
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            Log.d(TAG, "view page scrolled");
             int tabStripChildCount = mTabStrip.getChildCount();
             if ((tabStripChildCount == 0) || (position < 0) || (position >= tabStripChildCount)) {
                 return;
@@ -270,14 +300,20 @@ public class SlidingTabLayout extends HorizontalScrollView {
             scrollToTab(position, extraOffset);
 
             if (mViewPagerPageChangeListener != null) {
-                mViewPagerPageChangeListener.onPageScrolled(position, positionOffset,
-                        positionOffsetPixels);
+                mViewPagerPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
             }
+
+            mCurrentPosition = position;
         }
+
+
 
         @Override
         public void onPageScrollStateChanged(int state) {
             mScrollState = state;
+            if (state == ViewPager.SCROLL_STATE_IDLE) {
+                changeLayoutBackGround();
+            }
 
             if (mViewPagerPageChangeListener != null) {
                 mViewPagerPageChangeListener.onPageScrollStateChanged(state);
