@@ -20,14 +20,17 @@ import android.widget.LinearLayout;
  */
 public class SlidingTabStrip extends LinearLayout {
 
-    private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 2;
+    private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 5;
     private static final byte DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26;
-    private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 8;
+
+    private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 5;
     private static final int DEFAULT_SELECTED_INDICATOR_COLOR = 0xFF33B5E5;
 
     private static final int DEFAULT_DIVIDER_THICKNESS_DIPS = 0;
     private static final byte DEFAULT_DIVIDER_COLOR_ALPHA = 0x20;
     private static final float DEFAULT_DIVIDER_HEIGHT = 0.5f;
+
+    private static final float DEFAULT_SHADOW_HEIGHT = 50.0f;
 
     private final int mBottomBorderThickness;
     private final Paint mBottomBorderPaint;
@@ -65,12 +68,12 @@ public class SlidingTabStrip extends LinearLayout {
 
         mDefaultTabColorizer = new SimpleTabColorizer();
         mDefaultTabColorizer.setIndicatorColors(DEFAULT_SELECTED_INDICATOR_COLOR);
-        mDefaultTabColorizer.setDividerColors(setColorAlpha(themeForegroundColor,DEFAULT_DIVIDER_COLOR_ALPHA));
+        mDefaultTabColorizer.setDividerColors(setColorAlpha(themeForegroundColor, DEFAULT_DIVIDER_COLOR_ALPHA));
 
         mBottomBorderThickness = (int) (DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS * density);
         mBottomBorderPaint = new Paint();
 //        mBottomBorderPaint.setColor(mDefaultBottomBorderColor);
-        mBottomBorderPaint.setShadowLayer(10.0f, 0.0f, 2.0f, 0xFF000000);
+//        mBottomBorderPaint.setShadowLayer(20.0f, 0.0f, 2.0f, Color.BLACK);
 
         mSelectedIndicatorThickness = (int) (SELECTED_INDICATOR_THICKNESS_DIPS * density);
         mSelectedIndicatorPaint = new Paint();
@@ -78,6 +81,7 @@ public class SlidingTabStrip extends LinearLayout {
         mDividerHeight = DEFAULT_DIVIDER_HEIGHT;
         mDividerPaint = new Paint();
         mDividerPaint.setStrokeWidth((int) (DEFAULT_DIVIDER_THICKNESS_DIPS * density));
+
     }
 
     void setCustomTabColorizer(SlidingTabLayout.TabColorizer customTabColorizer) {
@@ -138,13 +142,12 @@ public class SlidingTabStrip extends LinearLayout {
 
             mSelectedIndicatorPaint.setColor(color);
 
-            canvas.drawRect(left, height - mSelectedIndicatorThickness, right,
-                    height, mSelectedIndicatorPaint);
+            canvas.drawRect(left, height - mSelectedIndicatorThickness,
+                    right, height, mSelectedIndicatorPaint);
         }
 
         // Thin underline along the entire bottom edge
-//        canvas.drawRect(0, height - mBottomBorderThickness, getWidth(), height, mBottomBorderPaint);
-//        canvas.drawRect(0, height - mBottomBorderThickness, getWidth(), height, mBottomBorderPaint);
+//        canvas.drawRect(0, height, getWidth(), height+ mBottomBorderThickness, mBottomBorderPaint);
 
         // Vertical separators between the titles
 //        int separatorTop = (height - dividerHeightPx) / 2;

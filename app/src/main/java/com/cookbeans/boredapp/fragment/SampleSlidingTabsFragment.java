@@ -155,17 +155,7 @@ public class SampleSlidingTabsFragment extends Fragment {
                 getResources().getColor(R.color.colorPrimaryDark)
         ));
 
-//        mTabs.add(new SamplePagerItem(
-//                "嘿嘿", // Title
-////                getResources().getColor(R.color.pinkIndicator), // Indicator color
-//                Color.WHITE,
-//                Color.GRAY, // Divider color
-//                getResources().getColor(R.color.pinkSecondary),
-//                getResources().getColor(R.color.pinkPrimary),
-//                getResources().getColor(R.color.pinkPrimaryDark)
-//        ));
-
-        mTabs.add(new SamplePagerItem(
+                mTabs.add(new SamplePagerItem(
                 "哈哈", // Title
 //                getResources().getColor(R.color.purpleIndicator), // Indicator color
                 Color.WHITE,
@@ -174,6 +164,17 @@ public class SampleSlidingTabsFragment extends Fragment {
                 getResources().getColor(R.color.purplePrimary),
                 getResources().getColor(R.color.purplePrimaryDark)
         ));
+
+        mTabs.add(new SamplePagerItem(
+                "嘿嘿", // Title
+//                getResources().getColor(R.color.pinkIndicator), // Indicator color
+                Color.WHITE,
+                Color.GRAY, // Divider color
+                getResources().getColor(R.color.pinkSecondary),
+                getResources().getColor(R.color.pinkPrimary),
+                getResources().getColor(R.color.pinkPrimaryDark)
+        ));
+
 
         mTabs.add(new SamplePagerItem(
                 "呜呜", // Title
