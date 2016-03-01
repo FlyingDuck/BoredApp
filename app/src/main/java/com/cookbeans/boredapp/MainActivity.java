@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void changeToolbarLayoutBackGround(int appBarBackGroundColor) {
+    public void changeToolbarLayoutBGColor(int appBarBackGroundColor) {
         Log.d(TAG, "change toolbar layout ground color");
         toolbarLayout.setBackgroundColor(appBarBackGroundColor);
     }

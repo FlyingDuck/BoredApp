@@ -104,7 +104,7 @@ public class SampleSlidingTabsFragment extends Fragment {
     }
 
     public interface Callback {
-        void changeToolbarLayoutBackGround(int color);
+        void changeToolbarLayoutBGColor(int color);
         void changeToolbarLayoutScrimColor(int color);
     }
 
@@ -155,15 +155,15 @@ public class SampleSlidingTabsFragment extends Fragment {
                 getResources().getColor(R.color.colorPrimaryDark)
         ));
 
-        mTabs.add(new SamplePagerItem(
-                "嘿嘿", // Title
-//                getResources().getColor(R.color.pinkIndicator), // Indicator color
-                Color.WHITE,
-                Color.GRAY, // Divider color
-                getResources().getColor(R.color.pinkSecondary),
-                getResources().getColor(R.color.pinkPrimary),
-                getResources().getColor(R.color.pinkPrimaryDark)
-        ));
+//        mTabs.add(new SamplePagerItem(
+//                "嘿嘿", // Title
+////                getResources().getColor(R.color.pinkIndicator), // Indicator color
+//                Color.WHITE,
+//                Color.GRAY, // Divider color
+//                getResources().getColor(R.color.pinkSecondary),
+//                getResources().getColor(R.color.pinkPrimary),
+//                getResources().getColor(R.color.pinkPrimaryDark)
+//        ));
 
         mTabs.add(new SamplePagerItem(
                 "哈哈", // Title
