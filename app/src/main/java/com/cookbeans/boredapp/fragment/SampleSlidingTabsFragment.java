@@ -147,8 +147,8 @@ public class SampleSlidingTabsFragment extends Fragment {
          */
         mTabs.add(new SamplePagerItem(
                 "呵呵", // Title
-//                getResources().getColor(R.color.colorIndicator), // Indicator color
-                Color.WHITE,
+                getResources().getColor(R.color.colorIndicator), // Indicator color
+//                Color.WHITE,
                 Color.GRAY, // Divider color
                 getResources().getColor(R.color.colorSecondary),
                 getResources().getColor(R.color.colorPrimary),
@@ -157,8 +157,8 @@ public class SampleSlidingTabsFragment extends Fragment {
 
                 mTabs.add(new SamplePagerItem(
                 "哈哈", // Title
-//                getResources().getColor(R.color.purpleIndicator), // Indicator color
-                Color.WHITE,
+                getResources().getColor(R.color.colorIndicator), // Indicator color
+//                Color.WHITE,
                 Color.GRAY, // Divider color
                 getResources().getColor(R.color.purpleSecondary),
                 getResources().getColor(R.color.purplePrimary),
@@ -167,8 +167,8 @@ public class SampleSlidingTabsFragment extends Fragment {
 
         mTabs.add(new SamplePagerItem(
                 "嘿嘿", // Title
-//                getResources().getColor(R.color.pinkIndicator), // Indicator color
-                Color.WHITE,
+                getResources().getColor(R.color.colorIndicator), // Indicator color
+//                Color.WHITE,
                 Color.GRAY, // Divider color
                 getResources().getColor(R.color.pinkSecondary),
                 getResources().getColor(R.color.pinkPrimary),
@@ -178,8 +178,8 @@ public class SampleSlidingTabsFragment extends Fragment {
 
         mTabs.add(new SamplePagerItem(
                 "呜呜", // Title
-//                getResources().getColor(R.color.deepPurpleIndicator), // Indicator color
-                Color.WHITE,
+                getResources().getColor(R.color.colorIndicator), // Indicator color
+//                Color.WHITE,
                 Color.GRAY, // Divider color
                 getResources().getColor(R.color.deepPurpleSecondary),
                 getResources().getColor(R.color.deepPurplePrimary),

@@ -85,7 +85,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private final SlidingTabStrip mTabStrip;
 
     private int mCurrentPosition = 0;
-    private float mCurrentOffset = 0F;
+    private float mCurrentOffset = 0f;
 
     private SampleSlidingTabsFragment.Callback mSlidingTabCallBack;
 
@@ -190,7 +190,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
         textView.setGravity(Gravity.CENTER);
         textView.setTextColor(Color.WHITE);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP);
-        textView.setTypeface(Typeface.DEFAULT_BOLD);
+//        textView.setTypeface(Typeface.DEFAULT_BOLD);
+        textView.setTypeface(Typeface.DEFAULT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             // If we're running on Honeycomb or newer, then we can use the Theme's
@@ -209,7 +210,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
         textView.setPadding(padding, padding, padding, padding);
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
         textView.setLayoutParams(layoutParams);
 
         return textView;
@@ -291,6 +292,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
             int nextToolbarBGColor = nextBGColors[1];
             if (toolbarBGColor != nextToolbarBGColor) {
                 toolbarBGColor = blendColors(nextToolbarBGColor, toolbarBGColor, mCurrentOffset);
+            }
+            int nextToolbarScrimColor = nextBGColors[2];
+            if (toolbarScrimColor != nextToolbarScrimColor) {
+                toolbarScrimColor = blendColors(nextToolbarScrimColor, toolbarScrimColor, mCurrentOffset);
             }
         }
 
