@@ -10,14 +10,23 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_gravity="center"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
-        card_view:cardCornerRadius="4dp">
+        android:elevation="100dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardBackgroundColor="@color/cardview_light_background">
 
-        <TextView
-            android:id="@+id/show_test"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_margin="@dimen/card_view_padding"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/show_test"
+                android:typeface="normal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
 

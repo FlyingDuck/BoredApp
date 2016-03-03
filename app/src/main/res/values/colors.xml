@@ -4,7 +4,10 @@
     <color name="colorPrimaryDark">#D32F2F</color>  <!--red 700-->
     <color name="colorAccent">#FFAB40</color>       <!--orange A200-->
     <color name="colorSecondary">#EF5350</color>    <!--red 400 #EF5350-->  <!--300 #E57373 -->
-    <color name="colorIndicator">#EEEEEE</color>    <!--grey  -->
+    <color name="colorIndicator">#EEEEEE</color>    <!--grey 200 -->
+    <!--<color name="colorBackground">#FFCDD2</color>   &lt;!&ndash;red 100&ndash;&gt; &lt;!&ndash; 50 #FFEBEE &ndash;&gt;-->
+    <!--<color name="colorCardBackground">#FFEBEE</color> &lt;!&ndash;red 50&ndash;&gt;-->
+    <color name="colorBackground">#EEEEEE</color>   <!--grey 200 -->
 
     <color name="pinkPrimary">#E91E63</color>       <!-- pink 500-->
     <color name="pinkPrimaryDark">#C2185B</color>   <!--pink 700-->

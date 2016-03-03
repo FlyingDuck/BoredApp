@@ -69,22 +69,27 @@ public class SimpleContentFragment extends Fragment {
         Bundle args = getArguments();
 
         if (args != null) {
-            TextView title = (TextView) view.findViewById(R.id.item_title);
-            title.setText("Title: " + args.getCharSequence(KEY_TITLE));
-
-            int indicatorColor = args.getInt(KEY_INDICATOR_COLOR);
-            TextView indicatorColorView = (TextView) view.findViewById(R.id.item_indicator_color);
-            indicatorColorView.setText("Indicator: #" + Integer.toHexString(indicatorColor));
-            indicatorColorView.setTextColor(indicatorColor);
-
-            int dividerColor = args.getInt(KEY_DIVIDER_COLOR);
-            TextView dividerColorView = (TextView) view.findViewById(R.id.item_divider_color);
-            dividerColorView.setText("Divider: #" + Integer.toHexString(dividerColor));
-            dividerColorView.setTextColor(dividerColor);
+//            TextView title = (TextView) view.findViewById(R.id.item_title);
+//            title.setText("Title: " + args.getCharSequence(KEY_TITLE));
+//
+//            int indicatorColor = args.getInt(KEY_INDICATOR_COLOR);
+//            TextView indicatorColorView = (TextView) view.findViewById(R.id.item_indicator_color);
+//            indicatorColorView.setText("Indicator: #" + Integer.toHexString(indicatorColor));
+//            indicatorColorView.setTextColor(indicatorColor);
+//
+//            int dividerColor = args.getInt(KEY_DIVIDER_COLOR);
+//            TextView dividerColorView = (TextView) view.findViewById(R.id.item_divider_color);
+//            dividerColorView.setText("Divider: #" + Integer.toHexString(dividerColor));
+//            dividerColorView.setTextColor(dividerColor);
 
             // Test
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
-            recyclerView.setAdapter(new RecyclerViewAdapter(new String[]{"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"}));
+            recyclerView.setAdapter(new RecyclerViewAdapter(new String[]{
+                    "俞正声说，2015年是全面深化改革的关键之年、全面推进依法治国的开局之年，也是人民政协事业开拓奋进、创新发展的重要一年。一年来，以习近平同志为总书记的中共中央高度重视政协工作，进一步加强对人民政协的政治、思想和组织领导，中央政治局常委会会议多次研究政协工作，中共中央出台加强社会主义协商民主建设的意见和加强人民政协协商民主建设的实施意见召开中央统战工作会议，颁布实施《中国共产党统一战线工作条例(试行)》",
+                    "The RecyclerView widget is a more advanced and flexible version of ListView. This widget is a container for displaying large data sets that can be scrolled very efficiently by maintaining a limited number of views. Use the RecyclerView widget when you have data collections whose elements change at runtime based on user action or network events.",
+                    "Animations for adding and removing items are enabled by default in RecyclerView. To customize these animations, extend the RecyclerView.ItemAnimator class and use the RecyclerView.setItemAnimator() method.",
+                    "4",
+                    "5","6","7","8","9","10","11","12","13","14","15","16","17","18"}));
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
             recyclerView.setLayoutManager(layoutManager);
         }
