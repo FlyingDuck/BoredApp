@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.cookbeans.boredapp.MainActivity;
 import com.cookbeans.boredapp.R;
@@ -48,32 +49,30 @@ public class SampleSlidingTabsFragment extends Fragment {
      * {@link com.cookbeans.boredapp.view.SlidingTabLayout}.
      */
     static class SamplePagerItem {
+        private final int mPostion;
         private final CharSequence mTitle;
         private final int mIndicatorColor;
         private final int mDividerColor;
 
         private final int[] mBGColors;
 
-        SamplePagerItem(CharSequence title, int indicatorColor, int dividerColor,
+        SamplePagerItem(int position,
+                        CharSequence title, int indicatorColor, int dividerColor,
                         int tabBackGroundColor,
                         int toolbarLayoutBGColor,
                         int toolbarLayoutScrimColor) {
+            mPostion = position;
             mTitle = title;
             mIndicatorColor = indicatorColor;
             mDividerColor = dividerColor;
-            mBGColors = new int[]{
-                    tabBackGroundColor,
-                    toolbarLayoutBGColor,
-                    toolbarLayoutScrimColor
-
-            };
+            mBGColors = new int[]{ tabBackGroundColor, toolbarLayoutBGColor,toolbarLayoutScrimColor};
         }
 
         /**
          * @return A new {@link Fragment} to be displayed by a {@link ViewPager}
          */
         Fragment createFragment() {
-            return SimpleContentFragment.newInstance(mTitle, mIndicatorColor, mDividerColor);
+            return SimpleContentFragment.newInstance(mPostion, mTitle, mIndicatorColor, mDividerColor);
         }
 
         /**
@@ -101,11 +100,13 @@ public class SampleSlidingTabsFragment extends Fragment {
         int[] getBGColors() {
             return mBGColors;
         }
+
     }
 
     public interface Callback {
         void changeToolbarLayoutBGColor(int color);
         void changeToolbarLayoutScrimColor(int color);
+        void changeToolbarTitle(String title);
     }
 
     /**
@@ -146,7 +147,8 @@ public class SampleSlidingTabsFragment extends Fragment {
          * color, which are used by {@link SlidingTabLayout}.
          */
         mTabs.add(new SamplePagerItem(
-                "呵呵", // Title
+                1,
+                "重要声明", // Title
                 getResources().getColor(R.color.colorIndicator), // Indicator color
 //                Color.WHITE,
                 Color.GRAY, // Divider color
@@ -155,8 +157,9 @@ public class SampleSlidingTabsFragment extends Fragment {
                 getResources().getColor(R.color.colorPrimaryDark)
         ));
 
-                mTabs.add(new SamplePagerItem(
-                "哈哈", // Title
+        mTabs.add(new SamplePagerItem(
+                2,
+                "产品列表", // Title
                 getResources().getColor(R.color.colorIndicator), // Indicator color
 //                Color.WHITE,
                 Color.GRAY, // Divider color
@@ -166,7 +169,8 @@ public class SampleSlidingTabsFragment extends Fragment {
         ));
 
         mTabs.add(new SamplePagerItem(
-                "嘿嘿", // Title
+                3,
+                "联系方式", // Title
                 getResources().getColor(R.color.colorIndicator), // Indicator color
 //                Color.WHITE,
                 Color.GRAY, // Divider color
@@ -176,15 +180,15 @@ public class SampleSlidingTabsFragment extends Fragment {
         ));
 
 
-        mTabs.add(new SamplePagerItem(
-                "呜呜", // Title
-                getResources().getColor(R.color.colorIndicator), // Indicator color
-//                Color.WHITE,
-                Color.GRAY, // Divider color
-                getResources().getColor(R.color.deepPurpleSecondary),
-                getResources().getColor(R.color.deepPurplePrimary),
-                getResources().getColor(R.color.deepPurplePrimaryDark)
-        ));
+//        mTabs.add(new SamplePagerItem(
+//                "呜呜", // Title
+//                getResources().getColor(R.color.colorIndicator), // Indicator color
+////                Color.WHITE,
+//                Color.GRAY, // Divider color
+//                getResources().getColor(R.color.deepPurpleSecondary),
+//                getResources().getColor(R.color.deepPurplePrimary),
+//                getResources().getColor(R.color.deepPurplePrimaryDark)
+//        ));
         // END_INCLUDE (populate_tabs)
     }
 

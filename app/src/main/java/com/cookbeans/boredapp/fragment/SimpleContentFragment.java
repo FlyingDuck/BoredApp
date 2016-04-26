@@ -28,6 +28,9 @@ import android.widget.TextView;
 import com.cookbeans.boredapp.R;
 import com.cookbeans.boredapp.adapter.RecyclerViewAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Simple Fragment used to display some meaningful content for each page in the sample's
  * {@link android.support.v4.view.ViewPager}.
@@ -38,14 +41,42 @@ public class SimpleContentFragment extends Fragment {
     private static final String KEY_INDICATOR_COLOR = "indicator_color";
     private static final String KEY_DIVIDER_COLOR = "divider_color";
 
-    /**
-     * @return a new instance of {@link SimpleContentFragment}, adding the parameters into a bundle and
-     * setting them as arguments.
-     */
-    public static SimpleContentFragment newInstance(CharSequence title, int indicatorColor,
-            int dividerColor) {
+
+
+    private List<String> testData1 = new ArrayList<String>(){{
+        add(    "CEO:kate\n" +
+                "2B 架构：董望舒\n" +
+                "三流的产品:#\n" +
+                "四线商务：#\n" +
+                "五线运营：思思神\n" +
+                "\n" +
+                "惊叹号网络科技有限没钱公司，于2016年3月3日成立在宇宙中心出租房内，这是一帮真的在苟且，但任然有梦想和远方的理想主义者，他们是善良的，真诚的，勇敢的。\n" +
+                "希望我们能成吧（称霸）。");
+    }};
+
+    private List<String> testData2 = new ArrayList<String>(){{
+        add(    "1.APP开发（看心情和人品接活，价钱：真的朋友的活不要钱，假的朋友请自觉付费）。\n" +
+                "2.燃气报警器\n" +
+                "3.空气售卖机");
+    }};
+
+    private List<String> testData3 = new ArrayList<String>(){{
+        add(    "挖人的自觉绕行。\n" +
+                "不挖人的联系18618361932");
+    }};
+
+
+        /**
+         * @return a new instance of {@link SimpleContentFragment}, adding the parameters into a bundle and
+         * setting them as arguments.
+         */
+    public static SimpleContentFragment newInstance(int position,
+                                                    CharSequence title,
+                                                    int indicatorColor,
+                                                    int dividerColor) {
         Bundle bundle = new Bundle();
         bundle.putCharSequence(KEY_TITLE, title);
+        bundle.putInt("position", position);
         bundle.putInt(KEY_INDICATOR_COLOR, indicatorColor);
         bundle.putInt(KEY_DIVIDER_COLOR, dividerColor);
 
@@ -83,13 +114,19 @@ public class SimpleContentFragment extends Fragment {
 //            dividerColorView.setTextColor(dividerColor);
 
             // Test
+            int position = args.getInt("position");
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
-            recyclerView.setAdapter(new RecyclerViewAdapter(new String[]{
-                    "俞正声说，2015年是全面深化改革的关键之年、全面推进依法治国的开局之年，也是人民政协事业开拓奋进、创新发展的重要一年。一年来，以习近平同志为总书记的中共中央高度重视政协工作，进一步加强对人民政协的政治、思想和组织领导，中央政治局常委会会议多次研究政协工作，中共中央出台加强社会主义协商民主建设的意见和加强人民政协协商民主建设的实施意见召开中央统战工作会议，颁布实施《中国共产党统一战线工作条例(试行)》",
-                    "The RecyclerView widget is a more advanced and flexible version of ListView. This widget is a container for displaying large data sets that can be scrolled very efficiently by maintaining a limited number of views. Use the RecyclerView widget when you have data collections whose elements change at runtime based on user action or network events.",
-                    "Animations for adding and removing items are enabled by default in RecyclerView. To customize these animations, extend the RecyclerView.ItemAnimator class and use the RecyclerView.setItemAnimator() method.",
-                    "4",
-                    "5","6","7","8","9","10","11","12","13","14","15","16","17","18"}));
+            List<String> testData = new ArrayList<>();
+            if (1 == position) {
+                testData = testData1;
+            } else if (2 == position) {
+                testData = testData2;
+            } else if (3 == position) {
+                testData = testData3;
+            } else {
+
+            }
+            recyclerView.setAdapter(new RecyclerViewAdapter(testData));
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
             recyclerView.setLayoutManager(layoutManager);
         }
