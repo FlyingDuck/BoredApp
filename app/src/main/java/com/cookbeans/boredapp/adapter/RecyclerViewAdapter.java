@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.cookbeans.boredapp.R;
 
+import java.util.List;
+
 /**
  * *****************************
  * ***    BoredApp   ****
@@ -42,9 +44,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    private String[] testDatas;
+    private List<String> testDatas;
 
-    public RecyclerViewAdapter(String[] testDatas) {
+    public RecyclerViewAdapter(List<String> testDatas) {
         this.testDatas = testDatas;
     }
 
@@ -56,11 +58,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.getTextView().setText(testDatas[position]);
+        holder.getTextView().setText(testDatas.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return testDatas.length;
+        return testDatas.size();
     }
 }

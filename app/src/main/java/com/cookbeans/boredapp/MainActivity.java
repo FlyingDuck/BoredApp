@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
 
         // toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
+        toolbar.setTitle("惊叹号");
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -140,5 +140,11 @@ public class MainActivity extends AppCompatActivity
     public void changeToolbarLayoutScrimColor(int color) {
         Log.d(TAG, "change toolbar layout scrim ground color");
         toolbarLayout.setContentScrimColor(color);
+    }
+
+    @Override
+    public void changeToolbarTitle(String title) {
+        Log.d(TAG, "change toolbar title ground color");
+        // TODO
     }
 }
