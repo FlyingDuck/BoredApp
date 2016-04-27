@@ -8,7 +8,7 @@
     tools:context="com.cookbeans.boredapp.MainActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:fitsSystemWindows="true"
