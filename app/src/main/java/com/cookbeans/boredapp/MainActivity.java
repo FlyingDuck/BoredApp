@@ -22,8 +22,7 @@ import com.cookbeans.boredapp.fragment.SampleSlidingTabsFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,
         SampleSlidingTabsFragment.Callback{
-
-    private static final String TAG = "MainActivity";
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout toolbarLayout;
@@ -32,16 +31,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_main);
         // app bar
-        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
 
         // toolbar layout
         toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 
         // toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("惊叹号");
+        toolbar.setTitle(R.string.toolbar_name);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

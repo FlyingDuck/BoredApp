@@ -51,7 +51,7 @@ import com.cookbeans.boredapp.fragment.SampleSlidingTabsFragment;
  * providing the layout ID of your custom layout.
  */
 public class SlidingTabLayout extends HorizontalScrollView {
-    private static final String TAG = "SlidingTabLayout";
+    private static final String TAG = SlidingTabLayout.class.getSimpleName();
 
     /**
      * Allows complete control over the colors drawn in the tab layout. Set with
