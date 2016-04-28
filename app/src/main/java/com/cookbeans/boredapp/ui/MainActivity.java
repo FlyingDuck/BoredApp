@@ -1,23 +1,29 @@
-package com.cookbeans.boredapp;
+package com.cookbeans.boredapp.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-import com.cookbeans.boredapp.fragment.SampleSlidingTabsFragment;
+import com.cookbeans.boredapp.R;
+import com.cookbeans.boredapp.ui.fragment.SampleSlidingTabsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,
@@ -27,6 +33,9 @@ public class MainActivity extends AppCompatActivity
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout toolbarLayout;
     private Toolbar toolbar;
+
+//    private List<View> toolbarViewPagerAds;
+    private int[] toolbarViewPagerAds = new int[]{R.drawable.girl, R.drawable.drawer_bg};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,48 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.toolbar_name);
         setSupportActionBar(toolbar);
+
+        // toolbar viewpager
+        /*LayoutInflater lf = getLayoutInflater().from(this);
+        View adView = lf.inflate(R.layout.ads_toolbar_viewpager_item, null);
+        toolbarViewPagerAds = new ArrayList<>();
+        toolbarViewPagerAds.add(adView);
+        toolbarViewPagerAds.add(adView);
+        toolbarViewPagerAds.add(adView);*/
+
+        ViewPager toolbarViewPager = (ViewPager) findViewById(R.id.toolbar_viewpager);
+        PagerAdapter toolbarViewPagerAdapter = new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return toolbarViewPagerAds.length;
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeViewAt(position);
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return "Ads "+position;
+            }
+
+            @Override
+            public boolean isViewFromObject(View view, Object object) {
+                return view == object;
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                ImageView adImg = new ImageView(MainActivity.this);
+                adImg.setBackgroundResource(toolbarViewPagerAds[position]);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT);
+                adImg.setLayoutParams(layoutParams);
+                container.addView(adImg);
+                return adImg;
+            }
+        };
+        toolbarViewPager.setAdapter(toolbarViewPagerAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

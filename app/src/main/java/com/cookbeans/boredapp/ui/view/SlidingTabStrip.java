@@ -1,4 +1,4 @@
-package com.cookbeans.boredapp.view;
+package com.cookbeans.boredapp.ui.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

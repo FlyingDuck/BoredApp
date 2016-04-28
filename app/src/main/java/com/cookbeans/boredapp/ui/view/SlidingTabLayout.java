@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cookbeans.boredapp.view;
+package com.cookbeans.boredapp.ui.view;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -32,7 +32,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.cookbeans.boredapp.fragment.SampleSlidingTabsFragment;
+import com.cookbeans.boredapp.ui.fragment.SampleSlidingTabsFragment;
 
 /**
  * To be used with ViewPager to provide a tab indicator component which give constant feedback as to
