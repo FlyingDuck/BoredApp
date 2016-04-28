@@ -1,4 +1,4 @@
-package com.cookbeans.boredapp.adapter;
+package com.cookbeans.boredapp.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,7 +15,7 @@ import java.util.List;
  * *****************************
  * ***    BoredApp   ****
  * *****************************
- * Package : com.cookbeans.boredapp.adapter
+ * Package : com.cookbeans.boredapp.ui.adapter
  * Data   : 16/2/26
  * Auth   : dongsj
  * Desc   :

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cookbeans.boredapp.fragment;
+package com.cookbeans.boredapp.ui.fragment;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -28,15 +28,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cookbeans.boredapp.MainActivity;
+import com.cookbeans.boredapp.ui.MainActivity;
 import com.cookbeans.boredapp.R;
-import com.cookbeans.boredapp.view.SlidingTabLayout;
+import com.cookbeans.boredapp.ui.view.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A basic sample which shows how to use {@link com.cookbeans.boredapp.view.SlidingTabLayout}
+ * A basic sample which shows how to use {@link SlidingTabLayout}
  * to display a custom {@link ViewPager} title strip which gives continuous feedback to the user
  * when scrolling.
  */
@@ -45,7 +45,7 @@ public class SampleSlidingTabsFragment extends Fragment {
 
     /**
      * This class represents a tab to be displayed by {@link ViewPager} and it's associated
-     * {@link com.cookbeans.boredapp.view.SlidingTabLayout}.
+     * {@link SlidingTabLayout}.
      */
     static class SampleTabItem {
         private final int mPostion;
@@ -84,14 +84,14 @@ public class SampleSlidingTabsFragment extends Fragment {
         }
 
         /**
-         * @return the color to be used for indicator on the {@link com.cookbeans.boredapp.view.SlidingTabLayout}
+         * @return the color to be used for indicator on the {@link SlidingTabLayout}
          */
         int getIndicatorColor() {
             return mIndicatorColor;
         }
 
         /**
-         * @return the color to be used for right divider on the {@link com.cookbeans.boredapp.view.SlidingTabLayout}
+         * @return the color to be used for right divider on the {@link SlidingTabLayout}
          */
         int getDividerColor() {
             return mDividerColor;
@@ -116,7 +116,7 @@ public class SampleSlidingTabsFragment extends Fragment {
     private SlidingTabLayout mSlidingTabLayout;
 
     /**
-     * A {@link ViewPager} which will be used in conjunction with the {@link com.cookbeans.boredapp.view.SlidingTabLayout} above.
+     * A {@link ViewPager} which will be used in conjunction with the {@link SlidingTabLayout} above.
      */
     private ViewPager mViewPager;
 
