@@ -33,16 +33,49 @@ import java.util.List;
 /**
  * Simple Fragment used to display some meaningful content for each page in the sample's
  * {@link android.support.v4.view.ViewPager}.
+ *
+ * 干货集中营数据Fragement
+ * http://gank.io/
  */
-public class SimpleContentFragment extends Fragment {
+public class GankContentFragment extends Fragment {
 
-    private static final String KEY_TITLE = "title";
-    private static final String KEY_INDICATOR_COLOR = "indicator_color";
-    private static final String KEY_DIVIDER_COLOR = "divider_color";
+    public static final String KEY_POSITION = "position";
 
 
 
     private List<String> testData1 = new ArrayList<String>(){{
+        add(    "CEO:kate\n" +
+                "2B 架构：董望舒\n" +
+                "三流的产品:#\n" +
+                "四线商务：#\n" +
+                "五线运营：思思神\n" +
+                "\n" +
+                "惊叹号网络科技有限没钱公司，于2016年3月3日成立在宇宙中心出租房内，这是一帮真的在苟且，但任然有梦想和远方的理想主义者，他们是善良的，真诚的，勇敢的。\n" +
+                "希望我们能成吧（称霸）。");
+        add(    "CEO:kate\n" +
+                "2B 架构：董望舒\n" +
+                "三流的产品:#\n" +
+                "四线商务：#\n" +
+                "五线运营：思思神\n" +
+                "\n" +
+                "惊叹号网络科技有限没钱公司，于2016年3月3日成立在宇宙中心出租房内，这是一帮真的在苟且，但任然有梦想和远方的理想主义者，他们是善良的，真诚的，勇敢的。\n" +
+                "希望我们能成吧（称霸）。");
+        add(    "CEO:kate\n" +
+                "2B 架构：董望舒\n" +
+                "三流的产品:#\n" +
+                "四线商务：#\n" +
+                "五线运营：思思神\n" +
+                "\n" +
+                "惊叹号网络科技有限没钱公司，于2016年3月3日成立在宇宙中心出租房内，这是一帮真的在苟且，但任然有梦想和远方的理想主义者，他们是善良的，真诚的，勇敢的。\n" +
+                "希望我们能成吧（称霸）。");
+        add(    "CEO:kate\n" +
+                "2B 架构：董望舒\n" +
+                "三流的产品:#\n" +
+                "四线商务：#\n" +
+                "五线运营：思思神\n" +
+                "\n" +
+                "惊叹号网络科技有限没钱公司，于2016年3月3日成立在宇宙中心出租房内，这是一帮真的在苟且，但任然有梦想和远方的理想主义者，他们是善良的，真诚的，勇敢的。\n" +
+                "希望我们能成吧（称霸）。");
         add(    "CEO:kate\n" +
                 "2B 架构：董望舒\n" +
                 "三流的产品:#\n" +
@@ -66,20 +99,14 @@ public class SimpleContentFragment extends Fragment {
 
 
         /**
-         * @return a new instance of {@link SimpleContentFragment}, adding the parameters into a bundle and
+         * @return a new instance of {@link GankContentFragment}, adding the parameters into a bundle and
          * setting them as arguments.
          */
-    public static SimpleContentFragment newInstance(int position,
-                                                    CharSequence title,
-                                                    int indicatorColor,
-                                                    int dividerColor) {
+    public static GankContentFragment newInstance(int position) {
         Bundle bundle = new Bundle();
-        bundle.putCharSequence(KEY_TITLE, title);
-        bundle.putInt("position", position);
-        bundle.putInt(KEY_INDICATOR_COLOR, indicatorColor);
-        bundle.putInt(KEY_DIVIDER_COLOR, dividerColor);
+        bundle.putInt(KEY_POSITION, position);
 
-        SimpleContentFragment fragment = new SimpleContentFragment();
+        GankContentFragment fragment = new GankContentFragment();
         fragment.setArguments(bundle);
 
         return fragment;
@@ -89,7 +116,7 @@ public class SimpleContentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.view_pager_sample_item, container, false);
+        return inflater.inflate(R.layout.view_pager_gank_item, container, false);
     }
 
     @Override
@@ -112,20 +139,10 @@ public class SimpleContentFragment extends Fragment {
 //            dividerColorView.setText("Divider: #" + Integer.toHexString(dividerColor));
 //            dividerColorView.setTextColor(dividerColor);
 
-            // Test
-            int position = args.getInt("position");
+            int position = args.getInt(KEY_POSITION);
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
-            List<String> testData = new ArrayList<>();
-            if (1 == position) {
-                testData = testData1;
-            } else if (2 == position) {
-                testData = testData2;
-            } else if (3 == position) {
-                testData = testData3;
-            } else {
 
-            }
-            recyclerView.setAdapter(new RecyclerViewAdapter(testData));
+            recyclerView.setAdapter(new RecyclerViewAdapter(testData1));
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
             recyclerView.setLayoutManager(layoutManager);
         }
