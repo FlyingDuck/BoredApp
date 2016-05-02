@@ -1,5 +1,6 @@
 package com.cookbeans.boredapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -15,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,23 +46,20 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         // app bar
         appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
-
         // toolbar layout
         toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+//        toolbarLayout.setTitleEnabled(false);
+        toolbarLayout.setTitle("惊叹号");
+        toolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);
+//        toolbarLayout.setExpandedTitleGravity(Gravity.);
 
         // toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.toolbar_name);
+//        toolbar.setTitle(R.string.toolbar_name);
         setSupportActionBar(toolbar);
 
         // toolbar viewpager
-        /*LayoutInflater lf = getLayoutInflater().from(this);
-        View adView = lf.inflate(R.layout.ads_toolbar_viewpager_item, null);
-        toolbarViewPagerAds = new ArrayList<>();
-        toolbarViewPagerAds.add(adView);
-        toolbarViewPagerAds.add(adView);
-        toolbarViewPagerAds.add(adView);*/
-
+        // toolbar 广告  TODO: 16/5/2  暂时用一个简单的viewpager代替
         ViewPager toolbarViewPager = (ViewPager) findViewById(R.id.toolbar_viewpager);
         PagerAdapter toolbarViewPagerAdapter = new PagerAdapter() {
             @Override
@@ -150,6 +149,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, TestActivity.class));
+
             return true;
         }
 

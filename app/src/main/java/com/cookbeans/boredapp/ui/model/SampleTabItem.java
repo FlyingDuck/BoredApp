@@ -14,9 +14,9 @@ import com.cookbeans.boredapp.ui.view.SlidingTabLayout;
  * 标签内容
  */
 public class SampleTabItem {
-    public static final int POS_GANK    =   1;  // gank
-    public static final int POS_DANIU =   2;  // 不知道
-    public static final int POS_UNDIFINED_TOO    =   3;  // 不知道
+    public static final int POS_GANK             =   1;  // gank
+    public static final int POS_DANIU            =   2;  // todo 大牛俱乐部
+    public static final int POS_UNDIFINED_TOO    =   3;  // todo 未确定
 
     private int             mPostion;       // 标签位置
     private CharSequence    mTitle;         // 标签标题
