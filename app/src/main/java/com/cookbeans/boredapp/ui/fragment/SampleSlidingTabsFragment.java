@@ -112,7 +112,7 @@ public class SampleSlidingTabsFragment extends Fragment {
 
         mTabs.add(new SampleTabItem(
                 SampleTabItem.POS_UNDIFINED_TOO,
-                "联系方式", // Title
+                "就是妹子", // Title
                 getResources().getColor(R.color.colorIndicator), // Indicator color
 //                Color.WHITE,
                 Color.GRAY, // Divider color
