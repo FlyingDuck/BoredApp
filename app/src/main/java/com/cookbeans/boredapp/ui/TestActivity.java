@@ -14,6 +14,13 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         ImageView imageView = (ImageView) findViewById(R.id.iv_test);
-        Glide.with(this).load("http://ww1.sinaimg.cn/large/7a8aed7bgw1f3damign7mj211c0l0dj2.jpg").into(imageView);
+        // http://goo.gl/gEgYUd
+        // http://ww1.sinaimg.cn/large/7a8aed7bgw1f3damign7mj211c0l0dj2.jpg
+        Glide.with(this)
+                .load("http://goo.gl/gEgYUd")
+                .error(R.drawable.girl)
+                .placeholder(R.drawable.ic_menu_camera)
+                .fitCenter()
+                .into(imageView);
     }
 }

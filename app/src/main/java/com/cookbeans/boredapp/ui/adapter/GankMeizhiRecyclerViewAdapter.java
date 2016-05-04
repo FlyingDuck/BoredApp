@@ -64,10 +64,12 @@ public class GankMeizhiRecyclerViewAdapter extends RecyclerView.Adapter<GankMeiz
         holder.meizhi = meizhi;
         holder.titleView.setText(text);
         holder.card.setTag(meizhi.desc);
-//        holder.meizhiView.setBackgroundResource(R.drawable.girl);
 
-        Glide.with(mFragment)
+        Glide.with(mContext)
                 .load(meizhi.url)
+//                .fitCenter()
+                .placeholder(R.drawable.meizhi_default)
+                .error(R.drawable.error_image)
                 .centerCrop()
                 .into(holder.meizhiView);
 //                .getSize(new SizeReadyCallback() {
@@ -104,8 +106,6 @@ public class GankMeizhiRecyclerViewAdapter extends RecyclerView.Adapter<GankMeiz
             super(itemView);
             card = itemView;
             titleView = (TextView) itemView.findViewById(R.id.tv_gank_title);
-//            meizhiView = (RatioImageView) itemView.findViewById(R.id.iv_meizhi);
-//            meizhiView.setOriginalSize(50, 50);
             meizhiView = (ImageView) itemView.findViewById(R.id.iv_meizhi);
             // Define click listener for the ViewHolder's View.
             card.setOnClickListener(this);
@@ -114,6 +114,7 @@ public class GankMeizhiRecyclerViewAdapter extends RecyclerView.Adapter<GankMeiz
         @Override
         public void onClick(View v) {
             Log.d(TAG, "Element " + getPosition() + " clicked." + meizhi.desc);
+            // TODO: 16/5/4 点击事件处理
         }
     }
 }

@@ -124,15 +124,44 @@ public class GankContentFragment extends Fragment {
         testMeizhi.type = "福利";
         testMeizhi.who = "张涵宇";
         testMeizhi.used = true;
-        testMeizhi.desc = "测试数据,不要大惊小怪.";
+        testMeizhi.desc = "05月03日:搞笑动画短片《水手与死神》，现在的死神啊，一言不合就开始卖萌！";
         testMeizhi.createdAt = new Date();
         testMeizhi.publishedAt = new Date();
         testMeizhi.updatedAt = new Date();
+        Meizhi testMeizhi_2 = new Meizhi();
+        testMeizhi_2.url = "http://ww1.sinaimg.cn/large/7a8aed7bgw1f3j8jt6qn8j20vr15owvk.jpg";
+        testMeizhi_2.type = "福利";
+        testMeizhi_2.who = "张涵宇";
+        testMeizhi_2.used = true;
+        testMeizhi_2.desc = "05月04日:泰国网红的心酸日常》：凄美的浪漫，虚无与真实.";
+        testMeizhi_2.createdAt = new Date();
+        testMeizhi_2.publishedAt = new Date();
+        testMeizhi_2.updatedAt = new Date();
+        Meizhi testMeizhi_3 = new Meizhi();
+        testMeizhi_3.url = "http://ww3.sinaimg.cn/large/7a8aed7bjw1f39v1uljz8j20c50hst9q.jpg";
+        testMeizhi_3.type = "福利";
+        testMeizhi_3.who = "张涵宇";
+        testMeizhi_3.used = true;
+        testMeizhi_3.desc = "05月04日:泰国网红的心酸日常》：凄美的浪漫，虚无与真实.";
+        testMeizhi_3.createdAt = new Date();
+        testMeizhi_3.publishedAt = new Date();
+        testMeizhi_3.updatedAt = new Date();
+        Meizhi testMeizhi_4 = new Meizhi();
+        testMeizhi_4.url = "http://ww2.sinaimg.cn/large/610dc034gw1f35cxyferej20dw0i2789.jpg";
+        testMeizhi_4.type = "福利";
+        testMeizhi_4.who = "张涵宇";
+        testMeizhi_4.used = true;
+        testMeizhi_4.desc = "05月04日:泰国网红的心酸日常》：凄美的浪漫，虚无与真实.";
+        testMeizhi_4.createdAt = new Date();
+        testMeizhi_4.publishedAt = new Date();
+        testMeizhi_4.updatedAt = new Date();
+
+
         mMeizhiList.add(testMeizhi);
-        mMeizhiList.add(testMeizhi);
-        mMeizhiList.add(testMeizhi);
-        mMeizhiList.add(testMeizhi);
-        mMeizhiList.add(testMeizhi);
+        mMeizhiList.add(testMeizhi_2);
+        mMeizhiList.add(testMeizhi_3);
+        mMeizhiList.add(testMeizhi_4);
+        mMeizhiList.add(testMeizhi_2);
     }
 
     @Override

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="backgroundGrey">#EEEEEE</color>     <!-- 主题背景色 grey 200-->
+
     <color name="colorPrimary">#F44336</color>      <!--red 500-->
     <color name="colorPrimaryDark">#D32F2F</color>  <!--red 700-->
     <color name="colorAccent">#FFAB40</color>       <!--orange A200-->
     <color name="colorSecondary">#EF5350</color>    <!--red 400 #EF5350-->  <!--300 #E57373 -->
-    <color name="colorIndicator">#EEEEEE</color>    <!--grey 200 -->
+    <color name="colorIndicator">#FFFFFF</color>    <!-- -->
     <!--<color name="colorBackground">#FFCDD2</color>   &lt;!&ndash;red 100&ndash;&gt; &lt;!&ndash; 50 #FFEBEE &ndash;&gt;-->
     <!--<color name="colorCardBackground">#FFEBEE</color> &lt;!&ndash;red 50&ndash;&gt;-->
     <color name="colorBackground">#EEEEEE</color>   <!--grey 200 -->
@@ -26,6 +28,9 @@
     <color name="deepPurpleSecondary">#7E57C2</color>   <!--deep purple 400 #7E57C2--> <!-- 300 #9575CD -->
     <color name="deepPurpleIndicator">#B39DDB</color>   <!-- 200 -->
 
+
+    <!--gank-->
+    <color name="gankPublishTimeColor">#9E9E9E</color>
 
 
 
