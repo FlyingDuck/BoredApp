@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
 
 //    private List<View> toolbarViewPagerAds;
-    private int[] toolbarViewPagerAds = new int[]{R.drawable.girl, R.drawable.drawer_bg};
+    private int[] toolbarViewPagerAds = new int[]{R.drawable.meizhi_default, R.drawable.meizhi_default};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
                 ImageView adImg = new ImageView(MainActivity.this);
-                adImg.setBackgroundResource(toolbarViewPagerAds[position]);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT);
+                adImg.setImageResource(toolbarViewPagerAds[position]);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewPager.LayoutParams.WRAP_CONTENT, ViewPager.LayoutParams.WRAP_CONTENT);
                 adImg.setLayoutParams(layoutParams);
                 container.addView(adImg);
                 return adImg;

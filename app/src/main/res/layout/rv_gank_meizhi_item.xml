@@ -4,6 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
@@ -12,15 +13,15 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
-        card_view:cardCornerRadius="2dp"
+        android:elevation="100dp"
+        card_view:cardCornerRadius="5dp"
         card_view:cardBackgroundColor="@color/cardview_light_background">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_margin="@dimen/card_view_padding"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="120dp">
 
             <!--<com.cookbeans.boredapp.ui.widget.RatioImageView-->
                 <!--android:id="@+id/iv_meizhi"-->
@@ -30,15 +31,39 @@
                 <!--android:scaleType="fitXY"/>-->
             <ImageView
                 android:id="@+id/iv_meizhi"
-                android:layout_width="100dp"
-                android:layout_height="100dp" />
+                android:src="@drawable/meizhi_default"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"/>
 
-            <TextView
-                android:id="@+id/tv_gank_title"
-                android:typeface="normal"
-                android:text="这是一条测试数据,不要在意内容,妹子."
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            <RelativeLayout
+                android:layout_marginLeft="5dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5">
+                <TextView
+                    android:id="@+id/tv_gank_title"
+                    android:typeface="normal"
+                    android:textSize="16sp"
+                    android:text="这是一条测试数据,不要在意内容,妹子."
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_gank_time"
+                    android:text="2016-05-03 12:26"
+                    android:typeface="serif"
+                    android:textColor="@color/gankPublishTimeColor"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
