@@ -39,26 +39,46 @@ public class MainActivity extends AppCompatActivity
 //    private List<View> toolbarViewPagerAds;
     private int[] toolbarViewPagerAds = new int[]{R.drawable.meizhi_default, R.drawable.meizhi_default};
 
+
+    private boolean mIsExpanded = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_main);
-        // app bar
+
+        /*[Start] toolbar */
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // toolbar.setTitle(R.string.toolbar_name);
+        setSupportActionBar(toolbar);
+        /*[End] toolbar */
+
+
+        /*[Start] appbar */
         appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
         // toolbar layout
         toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-//        toolbarLayout.setTitleEnabled(false);
+        // toolbarLayout.setTitleEnabled(false);
         toolbarLayout.setTitle("惊叹号");
         toolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);
-//        toolbarLayout.setExpandedTitleGravity(Gravity.);
+        // toolbarLayout.setExpandedTitleGravity(Gravity.);
 
-        // toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setTitle(R.string.toolbar_name);
-        setSupportActionBar(toolbar);
+        // 实现appbar滑动到一定程度自动收缩功能
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                int maxHeight = appBarLayout.getTotalScrollRange();
+                float scrolledPercent = Math.abs(verticalOffset)*1.0F/maxHeight;
+                Log.d(TAG, "max: " + maxHeight + " offset: " + verticalOffset + " percent: " + scrolledPercent);
+//                autoScrolling(scrolledPercent);
+            }
 
-        // toolbar viewpager
+        });
+        /*[End] appbar */
+
+
+        /* [Start] toolbar viewpager */
         // toolbar 广告  TODO: 16/5/2  暂时用一个简单的viewpager代替
         ViewPager toolbarViewPager = (ViewPager) findViewById(R.id.toolbar_viewpager);
         PagerAdapter toolbarViewPagerAdapter = new PagerAdapter() {
@@ -93,7 +113,9 @@ public class MainActivity extends AppCompatActivity
             }
         };
         toolbarViewPager.setAdapter(toolbarViewPagerAdapter);
+        /* [End] toolbar viewpager */
 
+        /* [Start] 浮动按钮 */
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,17 +124,20 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+        /* [End] 浮动按钮 */
 
+        /* [Start] 抽屉菜单 */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        /* [End] 抽屉菜单 */
 
 
+        /* [Start] 住内容界面 */
         // main content layout
         if (null == savedInstanceState) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -120,8 +145,10 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.content_fragment, sampleSlidingTabsFragment);
             transaction.commit();
         }
+        /* [End] 住内容界面 */
 
     }
+
 
     @Override
     public void onBackPressed() {

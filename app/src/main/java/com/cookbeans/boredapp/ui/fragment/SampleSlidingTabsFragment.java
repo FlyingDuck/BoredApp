@@ -94,7 +94,7 @@ public class SampleSlidingTabsFragment extends Fragment {
                 getResources().getColor(R.color.colorIndicator), // Indicator color
 //                Color.WHITE,
                 Color.GRAY, // Divider color
-                getResources().getColor(R.color.colorSecondary),
+                getResources().getColor(R.color.colorPrimaryDark),
                 getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark)
         ));
@@ -105,7 +105,7 @@ public class SampleSlidingTabsFragment extends Fragment {
                 getResources().getColor(R.color.colorIndicator), // Indicator color
 //                Color.WHITE,
                 Color.GRAY, // Divider color
-                getResources().getColor(R.color.purpleSecondary),
+                getResources().getColor(R.color.purplePrimaryDark),
                 getResources().getColor(R.color.purplePrimary),
                 getResources().getColor(R.color.purplePrimaryDark)
         ));
@@ -116,7 +116,7 @@ public class SampleSlidingTabsFragment extends Fragment {
                 getResources().getColor(R.color.colorIndicator), // Indicator color
 //                Color.WHITE,
                 Color.GRAY, // Divider color
-                getResources().getColor(R.color.pinkSecondary),
+                getResources().getColor(R.color.pinkPrimaryDark),
                 getResources().getColor(R.color.pinkPrimary),
                 getResources().getColor(R.color.pinkPrimaryDark)
         ));
