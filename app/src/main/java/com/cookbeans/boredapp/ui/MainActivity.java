@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
 
 //    private List<View> toolbarViewPagerAds;
-    private int[] toolbarViewPagerAds = new int[]{R.drawable.meizhi_default, R.drawable.meizhi_default};
+    private int[] toolbarViewPagerAds = new int[]{R.drawable.error_image, R.drawable.meizhi_default};
 
 
     private boolean mIsExpanded = true;

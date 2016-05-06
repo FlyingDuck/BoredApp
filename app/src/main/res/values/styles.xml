@@ -19,4 +19,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <!--appbar 收起时才展示标题-->
+    <style name="CollapsingToolbarTitleStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/transparent</item>
+    </style>
+
 </resources>
