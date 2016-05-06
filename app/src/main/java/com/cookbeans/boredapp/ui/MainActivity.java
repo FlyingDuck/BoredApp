@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 int maxHeight = appBarLayout.getTotalScrollRange();
                 float scrolledPercent = Math.abs(verticalOffset)*1.0F/maxHeight;
-                Log.d(TAG, "max: " + maxHeight + " offset: " + verticalOffset + " percent: " + scrolledPercent);
+//                Log.d(TAG, "max: " + maxHeight + " offset: " + verticalOffset + " percent: " + scrolledPercent);
 //                autoScrolling(scrolledPercent);
             }
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Email Address : dongshujin.beans@gmail.com", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

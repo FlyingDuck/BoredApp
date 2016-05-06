@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by dongsj on 16/5/2.
  */
-public class Meizhi {
+public class Gank {
     public String url;
 
     public String type;
