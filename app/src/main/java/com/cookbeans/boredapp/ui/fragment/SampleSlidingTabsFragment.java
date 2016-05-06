@@ -120,17 +120,6 @@ public class SampleSlidingTabsFragment extends Fragment {
                 getResources().getColor(R.color.pinkPrimary),
                 getResources().getColor(R.color.pinkPrimaryDark)
         ));
-
-
-//        mTabs.add(new SampleTabItem(
-//                "呜呜", // Title
-//                getResources().getColor(R.color.colorIndicator), // Indicator color
-////                Color.WHITE,
-//                Color.GRAY, // Divider color
-//                getResources().getColor(R.color.deepPurpleSecondary),
-//                getResources().getColor(R.color.deepPurplePrimary),
-//                getResources().getColor(R.color.deepPurplePrimaryDark)
-//        ));
         // END_INCLUDE (populate_tabs)
     }
 
