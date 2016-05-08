@@ -13,9 +13,6 @@ public class Gank {
     public boolean used;
     public String desc;
 
-    public int imageWidth;
-    public int imageHeight;
-
     public Date createdAt;
     public Date updatedAt;
     public Date publishedAt;

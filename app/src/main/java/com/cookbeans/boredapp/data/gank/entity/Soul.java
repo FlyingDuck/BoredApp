@@ -22,7 +22,7 @@ package com.cookbeans.boredapp.data.gank.entity;
 import java.io.Serializable;
 
 /**
- * Created by drakeet(http://drakeet.me)
+ * Created by
  * Date: 8/18/15 13:55
  */
 public class Soul implements Serializable {

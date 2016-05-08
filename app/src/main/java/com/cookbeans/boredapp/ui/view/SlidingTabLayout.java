@@ -346,10 +346,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         public void onPageScrollStateChanged(int state) {
             mScrollState = state;
             if (state == ViewPager.SCROLL_STATE_IDLE) {
-//                changeLayoutBackGround();
 
-//                CharSequence pageTitle = mViewPager.getAdapter().getPageTitle(mCurrentPosition);
-//                mSlidingTabCallBack.changeToolbarTitle(pageTitle.toString());
             }
 
             if (mViewPagerPageChangeListener != null) {

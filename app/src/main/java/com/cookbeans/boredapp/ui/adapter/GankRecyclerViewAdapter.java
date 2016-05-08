@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.cookbeans.boredapp.R;
 import com.cookbeans.boredapp.data.gank.entity.Gank;
+import com.cookbeans.boredapp.utils.DateTimeUtils;
 import com.cookbeans.boredapp.utils.Utils;
 
 import java.util.ArrayList;
@@ -86,18 +87,20 @@ public class GankRecyclerViewAdapter extends RecyclerView.Adapter<GankRecyclerVi
         View card;
         TextView titleView;
         ImageView meizhiView;
+        TextView timeView;
 
         public GankItemViewHolder(View itemView) {
             super(itemView);
             card = itemView;
             titleView = (TextView) itemView.findViewById(R.id.tv_gank_title);
             meizhiView = (ImageView) itemView.findViewById(R.id.iv_meizhi);
+            timeView = (TextView) itemView.findViewById(R.id.tv_gank_time);
             card.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            Log.d(TAG, "Element " + getPosition() + " clicked." + gank.desc);
+            Log.d(TAG, "Element " + getLayoutPosition() + " clicked." + gank.desc);
             // TODO: 16/5/4 点击事件处理
         }
     }
@@ -122,9 +125,12 @@ public class GankRecyclerViewAdapter extends RecyclerView.Adapter<GankRecyclerVi
 //        Log.d(TAG, "onBindViewHolder: position = " + position + " meizi = " + gank.url);
         int limit = 48;
         String text = gank.desc.length() > limit ? gank.desc.substring(0, limit) + "..." : gank.desc;
+        String timeText = DateTimeUtils.dateToDefaultStr(gank.publishedAt);
+
         viewHolder.gank = gank;
         viewHolder.titleView.setText(text);
         viewHolder.card.setTag(gank.desc);
+        viewHolder.timeView.setText(timeText);
 
         Glide.with(mContext)
                 .load(gank.url)
