@@ -29,18 +29,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cookbeans.boredapp.R;
-import com.cookbeans.boredapp.data.gank.GankResult;
 import com.cookbeans.boredapp.data.gank.entity.Gank;
-import com.cookbeans.boredapp.service.GankCloudApi;
+import com.cookbeans.boredapp.data.gank.net.GankResult;
+import com.cookbeans.boredapp.service.ApiFactory;
+import com.cookbeans.boredapp.service.GankApi;
 import com.cookbeans.boredapp.ui.adapter.GankRecyclerViewAdapter;
 import com.cookbeans.boredapp.utils.TestDatas;
 import com.malinskiy.materialicons.IconDrawable;
 import com.malinskiy.materialicons.Iconify;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
+import java.util.logging.Logger;
+
+import retrofit.RetrofitError;
+import rx.Notification;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.functions.Func2;
+import rx.schedulers.Schedulers;
 
 /**
  * Simple Fragment used to display some meaningful content for each page in the sample's
@@ -54,6 +64,8 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
 
     public static final String KEY_POSITION = "position";
 
+    private final GankApi gankApi = ApiFactory.getGankApiSingleton();
+
 
     private List<Gank> mGankList;
 
@@ -65,7 +77,8 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
     private int mLastVisibleItem;
     private boolean isLoadMore = false;
     private boolean isALlLoad = false;
-    
+
+    private boolean isPullDown = true;
         /**
          * @return a new instance of {@link GankContentFragment}, adding the parameters into a bundle and
          * setting them as arguments.
@@ -130,6 +143,7 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
 
     @Override
     public void onRefresh() {
+        isPullDown = true;
         reloadData();
     }
 
@@ -152,8 +166,16 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
         };
     }
 
+    private View.OnClickListener mErrorRetryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            reloadData();
+        }
+    };
+
     private void loadMore(){
         Log.d(TAG, "loadMore");
+        isPullDown = false;
         if(isLoadMore) {
             return;
         }
@@ -168,7 +190,7 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
     }
 
     private void reloadData(){
-        mSwipeRefreshLayout.setRefreshing(true);
+//        mSwipeRefreshLayout.setRefreshing(true);
         mGankList.clear();
         isALlLoad = false;
         hasLoadPage = 0;
@@ -178,40 +200,152 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
     private void loadData(int startPage){
         Log.d(TAG, "loadData startPage : " + startPage);
         mSwipeRefreshLayout.setRefreshing(true);
-        // TODO: 16/5/6 网络请求数据
-        // 暂时 使用假数据
-        List<Gank> ganks = null;
-        if (4 == startPage){
-            ganks = TestDatas.getAnyLength(GankCloudApi.LOAD_LIMIT-1);
-        } else {
-            ganks = TestDatas.getAnyLength(GankCloudApi.LOAD_LIMIT);
-        }
 
-        final GankResult gankResult = new GankResult(ganks);
-        mSwipeRefreshLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                disposeResults(gankResult);
-                mSwipeRefreshLayout.setRefreshing(false);
+        Observable
+                .zip( // zip 两个结果集合并
+                        gankApi.getMeizhiData(startPage),
+                        gankApi.getVideoData(startPage),
+                        new Func2<GankResult, GankResult, GankResult>() { // 将video中的描述
+                            @Override
+                            public GankResult call(GankResult meizhiResult, GankResult videoResult) {
+                                // todo 有时候妹纸图片一天有多张 后期需要将同一天的meizhi图片做合并
+                                for (int index = 0; index < meizhiResult.results.size(); index++) {
+                                    Gank meizhi = meizhiResult.results.get(index);
+                                    Gank video = videoResult.results.get(index);
+                                    meizhi.desc = meizhi.desc + " " + video.desc;
+                                }
+                                return meizhiResult;
+                            }})
+                .map( // map 一个Result对象 转化为一个List<Gank>对象
+                        new Func1<GankResult, List<Gank>>() {
+                            @Override
+                            public List<Gank> call(GankResult meizhiResult) {
+                                return meizhiResult.results;
+                            }
+                        }
+                )
+                .flatMap( // flatMap 将一个List<Gank>对象 转化为多个Observable<Gank>对象
+                        new Func1<List<Gank>, Observable<Gank>>() {
+                            @Override
+                            public Observable<Gank> call(List<Gank> meizhiList) {
+                                return Observable.from(meizhiList);
+                            }
+                        }
+                )
+                .toSortedList( // sort 排序
+                        new Func2<Gank, Gank, Integer>() {
+                            @Override
+                            public Integer call(Gank meizhi1, Gank meizhi2) {
+                                return meizhi2.publishedAt.compareTo(meizhi1.publishedAt);
+                            }
+                        }
+                )
+                .subscribeOn(Schedulers.computation())
+                .doOnNext(  //
+                        new Action1<List<Gank>>() {
+                            @Override
+                            public void call(List<Gank> meizhiList) {
+                                Log.d(TAG, "Observable doOnNext : 保存数据到数据库");
+                                // TODO: 16/5/8 保存数据到数据库
+                            }
+                        }
+                )
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(
+                        new Action1<List<Gank>>() {
+                            @Override
+                            public void call(List<Gank> meizhiList) {
+                                Log.d(TAG, "Observable doOnNext : 更新页面");
+                                disposeResults(meizhiList);
+                            }
+                        }
+                )
+                .doOnCompleted(
+                        new Action0() {
+                            @Override
+                            public void call() {
+                                Log.d(TAG, "Observable doOnCompleteted");
+                            }
+                        }
+                )
+                .doOnError(
+                        new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+                                Log.d(TAG, "Observable doOnError");
 
-            }
-        }, 1000);
+
+                            }
+                        }
+                )
+                .finallyDo(
+                        new Action0() {
+                            @Override
+                            public void call() {
+                                Log.d(TAG, "Observable finallyDo");
+                            }
+                        }
+                )
+                .subscribe(
+                        new Action1<List<Gank>>() {
+                            @Override
+                            public void call(List<Gank> ganks) {
+                                Log.d(TAG, "Observable subscribe() onNext");
+                            }
+                        },
+                        new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+                                Log.d(TAG, "Observable subscribe() onError");
+                                if (throwable instanceof RetrofitError) {
+                                    Drawable errorDrawable = new IconDrawable(getContext(), Iconify.IconValue.zmdi_network_off)
+                                            .colorRes(android.R.color.white);
+                                    RetrofitError e = (RetrofitError) throwable;
+                                    if (e.getKind() == RetrofitError.Kind.NETWORK) {
+                                        showError(errorDrawable, "网络异常", "好像您的网络出了点问题", "重试", mErrorRetryListener);
+                                    } else if (e.getKind() == RetrofitError.Kind.HTTP) {
+                                        showError(errorDrawable, "服务异常", "好像服务器出了点问题", "再试一次", mErrorRetryListener);
+                                    } else {
+                                        showError(errorDrawable, "莫名异常", "外星人进攻地球了？", "反击", mErrorRetryListener);
+                                    }
+                                }
+                                isLoadMore = false;
+                                mSwipeRefreshLayout.setRefreshing(false);
+                            }
+                        },
+                        new Action0() {
+                            @Override
+                            public void call() {
+                                Log.d(TAG, "Observable subscribe() onComplete");
+                                mSwipeRefreshLayout.setRefreshing(false);
+                            }
+                        }
+                );
 
     }
 
-    private void disposeResults(final GankResult gankResult){
-        if(mGankList.isEmpty() && gankResult.getGankList().isEmpty()){
+    private void disposeResults(final List<Gank> meizhis){
+        if(mGankList.isEmpty() && meizhis.isEmpty()){
             showNoDataView();
             return;
         }
         showContent();
-        if(gankResult.getGankList().size() == GankCloudApi.LOAD_LIMIT){
+
+        if (isPullDown) {
+            // TODO: 16/5/8 判断是否没有更新
+
+        } else {
+            // TODO: 16/5/8 判断是否到最后
+
+        }
+
+        if(meizhis.size() == GankApi.LOAD_LIMIT){
             hasLoadPage++;
         }else {
             isALlLoad = true;
         }
         isLoadMore = false;
-        mGankList.addAll(gankResult.getGankList());
+        mGankList.addAll(meizhis);
         mGankRecyclerViewAdapter.updateItems(mGankList, hasLoadPage == 1);
     }
 
