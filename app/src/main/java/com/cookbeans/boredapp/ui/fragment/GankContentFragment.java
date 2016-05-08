@@ -160,6 +160,7 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && mLastVisibleItem + 1 == mGankRecyclerViewAdapter.getItemCount()) {
+                    isPullDown = false;
                     loadMore();
                 }
             }
@@ -175,7 +176,6 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
 
     private void loadMore(){
         Log.d(TAG, "loadMore");
-        isPullDown = false;
         if(isLoadMore) {
             return;
         }
@@ -190,8 +190,7 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
     }
 
     private void reloadData(){
-//        mSwipeRefreshLayout.setRefreshing(true);
-        mGankList.clear();
+//        mGankList.clear();
         isALlLoad = false;
         hasLoadPage = 0;
         loadData(1);
@@ -211,8 +210,10 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
                                 // todo 有时候妹纸图片一天有多张 后期需要将同一天的meizhi图片做合并
                                 for (int index = 0; index < meizhiResult.results.size(); index++) {
                                     Gank meizhi = meizhiResult.results.get(index);
-                                    Gank video = videoResult.results.get(index);
-                                    meizhi.desc = meizhi.desc + " " + video.desc;
+                                    if (index < videoResult.results.size()) {
+                                        Gank video = videoResult.results.get(index);
+                                        meizhi.desc = meizhi.desc + " " + video.desc;
+                                    }
                                 }
                                 return meizhiResult;
                             }})
@@ -255,7 +256,7 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
                         new Action1<List<Gank>>() {
                             @Override
                             public void call(List<Gank> meizhiList) {
-                                Log.d(TAG, "Observable doOnNext : 更新页面");
+                                Log.d(TAG, "Observable doOnNext : 更新页面 size : " + meizhiList.size());
                                 disposeResults(meizhiList);
                             }
                         }
@@ -324,28 +325,40 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
 
     }
 
-    private void disposeResults(final List<Gank> meizhis){
-        if(mGankList.isEmpty() && meizhis.isEmpty()){
+    private void disposeResults(final List<Gank> meizhiList){
+        if(mGankList.isEmpty() && meizhiList.isEmpty()){
             showNoDataView();
             return;
         }
         showContent();
 
         if (isPullDown) {
-            // TODO: 16/5/8 判断是否没有更新
-
+            if (hasNew(meizhiList)) {
+                mGankList.addAll(0, meizhiList);
+            } else {
+                Snackbar.make(mRecyclerView,"已经是最新的了",Snackbar.LENGTH_SHORT)
+                        .setAction("知道了",null)
+                        .show();
+            }
         } else {
-            // TODO: 16/5/8 判断是否到最后
-
+            Log.d(TAG, "is not pulldown");
+            if (hasMore(meizhiList)) {
+                Log.d(TAG, "has more");
+                mGankList.addAll(meizhiList);
+            } else {
+                Log.d(TAG, "no more");
+                isALlLoad = true;
+            }
+            isLoadMore = false;
         }
 
-        if(meizhis.size() == GankApi.LOAD_LIMIT){
+
+        if(meizhiList.size() == GankApi.LOAD_LIMIT){
             hasLoadPage++;
-        }else {
-            isALlLoad = true;
+        } else {
+//            isALlLoad = true;
         }
-        isLoadMore = false;
-        mGankList.addAll(meizhis);
+
         mGankRecyclerViewAdapter.updateItems(mGankList, hasLoadPage == 1);
     }
 
@@ -354,6 +367,30 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
                 .colorRes(android.R.color.white);
         List<Integer> skipIds = new ArrayList<>();
         showEmpty(emptyDrawable, "数据列表为空", "没有拿到数据哎，请等一下再来玩干货吧", skipIds);
+    }
+
+    private boolean hasNew(List<Gank> newMeizhiList) {
+        if (null == newMeizhiList || 0 == newMeizhiList.size()) {
+            return false;
+        }
+        if (0 == mGankList.size()) {
+            return true;
+        }
+
+        Gank currentFirstMeizhi = mGankList.get(0);
+        Gank newFirstMeizhi = newMeizhiList.get(0);
+        return -1 == currentFirstMeizhi.publishedAt.compareTo(newFirstMeizhi.publishedAt);
+    }
+
+    private boolean hasMore(List<Gank> historyMeizhiList) {
+        if (0 == historyMeizhiList.size()) {
+            return false;
+        }
+
+        Gank currentLastMeizhi = mGankList.get(mGankList.size()-1);
+        Gank historyLastMeizhi = historyMeizhiList.get(historyMeizhiList.size()-1);
+
+        return 1 == currentLastMeizhi.publishedAt.compareTo(historyLastMeizhi.publishedAt);
     }
 
 }
