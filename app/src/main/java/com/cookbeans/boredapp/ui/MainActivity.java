@@ -70,8 +70,6 @@ public class MainActivity extends AppCompatActivity
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 int maxHeight = appBarLayout.getTotalScrollRange();
                 float scrolledPercent = Math.abs(verticalOffset)*1.0F/maxHeight;
-//                Log.d(TAG, "max: " + maxHeight + " offset: " + verticalOffset + " percent: " + scrolledPercent);
-//                autoScrolling(scrolledPercent);
             }
 
         });
