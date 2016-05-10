@@ -10,6 +10,10 @@
     <string name="toolbar_name">惊叹号</string>
     <string name="gank_detail_toolbar_name">干货集中营</string>
 
+    <string name="share">分享给好基友吧</string>
+    <string name="share_text">发现了一款非常美观的App「惊叹号&amp;gank.io&amp;daniu.io」，每天一张精选妹纸图、一个精选小视频（视频源地址播放），一篇程序猿干货，完全开源不收费，太赞了! 推荐~：http://fir.im/xxxxxx </string>
+    <string name="share_action">分享</string>
+
 
     <string name="large_text">
         "Material is the metaphor.\n\n"

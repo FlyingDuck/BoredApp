@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 
 import com.cookbeans.boredapp.R;
 import com.cookbeans.boredapp.ui.fragment.SampleSlidingTabsFragment;
+import com.cookbeans.boredapp.utils.ShareUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,
@@ -173,9 +174,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.setting) {
             startActivity(new Intent(this, TestActivity.class));
-
+            return true;
+        }
+        if (id == R.id.share) {
+            ShareUtils.share(this);
             return true;
         }
 
