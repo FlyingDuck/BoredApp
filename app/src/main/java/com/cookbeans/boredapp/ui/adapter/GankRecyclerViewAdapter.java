@@ -123,12 +123,12 @@ public class GankRecyclerViewAdapter extends RecyclerView.Adapter<GankRecyclerVi
     private void bindGankItem(GankItemViewHolder viewHolder, int position) {
         Gank gank = mGankList.get(position);
 //        Log.d(TAG, "onBindViewHolder: position = " + position + " meizi = " + gank.url);
-        int limit = 48;
-        String text = gank.desc.length() > limit ? gank.desc.substring(0, limit) + "..." : gank.desc;
+        int limit = 60;
+        String title = gank.desc.length() > limit ? gank.desc.substring(0, limit) + "..." : gank.desc;
         String timeText = DateTimeUtils.dateToDefaultStr(gank.publishedAt);
 
         viewHolder.gank = gank;
-        viewHolder.titleView.setText(text);
+        viewHolder.titleView.setText(title);
         viewHolder.card.setTag(gank.desc);
         viewHolder.timeView.setText(timeText);
 

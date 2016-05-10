@@ -212,7 +212,7 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
                                     Gank meizhi = meizhiResult.results.get(index);
                                     if (index < videoResult.results.size()) {
                                         Gank video = videoResult.results.get(index);
-                                        meizhi.desc = meizhi.desc + " " + video.desc;
+                                        meizhi.desc = video.desc;
                                     }
                                 }
                                 return meizhiResult;
@@ -318,7 +318,14 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
                             @Override
                             public void call() {
                                 Log.d(TAG, "Observable subscribe() onComplete");
-                                mSwipeRefreshLayout.setRefreshing(false);
+                                mSwipeRefreshLayout.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (null != mSwipeRefreshLayout) {
+                                            mSwipeRefreshLayout.setRefreshing(false);
+                                        }
+                                    }
+                                }, 1000);
                             }
                         }
                 );
