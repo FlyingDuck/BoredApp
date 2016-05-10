@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.cookbeans.boredapp.R;
 import com.cookbeans.boredapp.data.gank.entity.Gank;
+import com.cookbeans.boredapp.ui.func.OnGankMeizhiTouchListener;
 import com.cookbeans.boredapp.utils.DateTimeUtils;
 import com.cookbeans.boredapp.utils.Utils;
 
@@ -45,8 +46,7 @@ public class GankRecyclerViewAdapter extends RecyclerView.Adapter<GankRecyclerVi
     private boolean animateItems = false;
     private int lastAnimatedPosition = -1;
 
-    // TODO: 16/5/3 gank card 点击事件
-
+    private OnGankMeizhiTouchListener mOnGankMeizhiTouchListener;
 
     public GankRecyclerViewAdapter(Context context) {
         this.mContext = context;
@@ -80,9 +80,13 @@ public class GankRecyclerViewAdapter extends RecyclerView.Adapter<GankRecyclerVi
         return mGankList.size();
     }
 
+    public void setOnGankMeizhiTouchListener(OnGankMeizhiTouchListener onGankMeizhiTouchListener) {
+        this.mOnGankMeizhiTouchListener = onGankMeizhiTouchListener;
+    }
 
-    public static class GankItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        Gank gank;
+
+    public class GankItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        Gank meizhi;
 
         View card;
         TextView titleView;
@@ -95,13 +99,15 @@ public class GankRecyclerViewAdapter extends RecyclerView.Adapter<GankRecyclerVi
             titleView = (TextView) itemView.findViewById(R.id.tv_gank_title);
             meizhiView = (ImageView) itemView.findViewById(R.id.iv_meizhi);
             timeView = (TextView) itemView.findViewById(R.id.tv_gank_time);
+            meizhiView.setOnClickListener(this);
+            titleView.setOnClickListener(this);
             card.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            Log.d(TAG, "Element " + getLayoutPosition() + " clicked." + gank.desc);
-            // TODO: 16/5/4 点击事件处理
+            Log.d(TAG, "Element " + getLayoutPosition() + " clicked." + meizhi.desc);
+            mOnGankMeizhiTouchListener.onTouch(v, meizhiView, titleView, card, meizhi);
         }
     }
 
@@ -122,13 +128,13 @@ public class GankRecyclerViewAdapter extends RecyclerView.Adapter<GankRecyclerVi
 
     private void bindGankItem(GankItemViewHolder viewHolder, int position) {
         Gank gank = mGankList.get(position);
-//        Log.d(TAG, "onBindViewHolder: position = " + position + " meizi = " + gank.url);
-        int limit = 48;
-        String text = gank.desc.length() > limit ? gank.desc.substring(0, limit) + "..." : gank.desc;
+//        Log.d(TAG, "onBindViewHolder: position = " + position + " meizi = " + meizhi.url);
+        int limit = 60;
+        String title = gank.desc.length() > limit ? gank.desc.substring(0, limit) + "..." : gank.desc;
         String timeText = DateTimeUtils.dateToDefaultStr(gank.publishedAt);
 
-        viewHolder.gank = gank;
-        viewHolder.titleView.setText(text);
+        viewHolder.meizhi = gank;
+        viewHolder.titleView.setText(title);
         viewHolder.card.setTag(gank.desc);
         viewHolder.timeView.setText(timeText);
 

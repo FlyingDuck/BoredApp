@@ -16,6 +16,7 @@
 
 package com.cookbeans.boredapp.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,12 +34,15 @@ import com.cookbeans.boredapp.data.gank.entity.Gank;
 import com.cookbeans.boredapp.data.gank.net.GankResult;
 import com.cookbeans.boredapp.service.ApiFactory;
 import com.cookbeans.boredapp.service.GankApi;
+import com.cookbeans.boredapp.ui.GankDetailActivity;
 import com.cookbeans.boredapp.ui.adapter.GankRecyclerViewAdapter;
+import com.cookbeans.boredapp.ui.func.OnGankMeizhiTouchListener;
 import com.cookbeans.boredapp.utils.TestDatas;
 import com.malinskiy.materialicons.IconDrawable;
 import com.malinskiy.materialicons.Iconify;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -59,7 +63,7 @@ import rx.schedulers.Schedulers;
  * 干货集中营数据Fragement
  * http://gank.io/
  */
-public class GankContentFragment extends BaseLoadingFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class GankContentFragment extends BaseLoadingFragment {
     public static final String TAG = GankContentFragment.class.getSimpleName();
 
     public static final String KEY_POSITION = "position";
@@ -97,6 +101,7 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mGankRecyclerViewAdapter = new GankRecyclerViewAdapter(getActivity());
+        mGankRecyclerViewAdapter.setOnGankMeizhiTouchListener(getOnGankMeizhiTouchListener());
         mGankList = new ArrayList<>();
     }
 
@@ -123,8 +128,14 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
         mRecyclerView.addOnScrollListener(getOnBottomListener());
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
-        mSwipeRefreshLayout.setColorSchemeColors(R.color.colorSecondary, R.color.colorPrimary, R.color.colorPrimaryDark);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeColors(R.color.colorSecondary, R.color.colorPrimary);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                isPullDown = true;
+                reloadData();
+            }
+        });
 
         Bundle args = getArguments();
 
@@ -141,10 +152,25 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
         reloadData();
     }
 
-    @Override
-    public void onRefresh() {
-        isPullDown = true;
-        reloadData();
+    private OnGankMeizhiTouchListener getOnGankMeizhiTouchListener() {
+        return new OnGankMeizhiTouchListener() {
+            @Override
+            public void onTouch(View view, View meizhiView, View titleView, View card, Gank meizhi) {
+                if (null == meizhi) {
+                    return;
+                }
+                if (view == meizhiView) {
+                    Snackbar.make(mRecyclerView, "你点了这个妹纸", Snackbar.LENGTH_SHORT)
+                            .setAction("好的", null)
+                            .show();
+                } else if (view == titleView) {
+                    startGankDetailActivity(meizhi);
+                } else if (view == card) {
+
+                }
+
+            }
+        };
     }
 
     private RecyclerView.OnScrollListener getOnBottomListener() {
@@ -167,6 +193,7 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
         };
     }
 
+
     private View.OnClickListener mErrorRetryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -181,7 +208,7 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
         }
         if(isALlLoad){
             Snackbar.make(mRecyclerView,"全部加载完毕",Snackbar.LENGTH_SHORT)
-                    .setAction("知道了",null)
+                    .setAction("返回顶部", null)
                     .show();
             return;
         }
@@ -212,7 +239,7 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
                                     Gank meizhi = meizhiResult.results.get(index);
                                     if (index < videoResult.results.size()) {
                                         Gank video = videoResult.results.get(index);
-                                        meizhi.desc = meizhi.desc + " " + video.desc;
+                                        meizhi.desc = video.desc;
                                     }
                                 }
                                 return meizhiResult;
@@ -318,7 +345,14 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
                             @Override
                             public void call() {
                                 Log.d(TAG, "Observable subscribe() onComplete");
-                                mSwipeRefreshLayout.setRefreshing(false);
+                                mSwipeRefreshLayout.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (null != mSwipeRefreshLayout) {
+                                            mSwipeRefreshLayout.setRefreshing(false);
+                                        }
+                                    }
+                                }, 1000);
                             }
                         }
                 );
@@ -391,6 +425,14 @@ public class GankContentFragment extends BaseLoadingFragment implements SwipeRef
         Gank historyLastMeizhi = historyMeizhiList.get(historyMeizhiList.size()-1);
 
         return 1 == currentLastMeizhi.publishedAt.compareTo(historyLastMeizhi.publishedAt);
+    }
+
+
+    private void startGankDetailActivity(Gank meizhi) {
+        Intent intent = new Intent(getContext(), GankDetailActivity.class);
+        intent.putExtra(GankDetailActivity.EXTRA_GANK_DATE, meizhi.publishedAt);
+        intent.putExtra(GankDetailActivity.EXTRA_GANK_MEIZHI_URL, meizhi.url);
+        startActivity(intent);
     }
 
 }

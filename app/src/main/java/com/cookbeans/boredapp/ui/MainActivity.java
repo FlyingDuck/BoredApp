@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 
 import com.cookbeans.boredapp.R;
 import com.cookbeans.boredapp.ui.fragment.SampleSlidingTabsFragment;
+import com.cookbeans.boredapp.utils.ShareUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         // toolbar layout
         toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         // toolbarLayout.setTitleEnabled(false);
-        toolbarLayout.setTitle("惊叹号");
+        toolbarLayout.setTitle(getString(R.string.toolbar_name));
         toolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);
         // toolbarLayout.setExpandedTitleGravity(Gravity.);
 
@@ -70,8 +71,6 @@ public class MainActivity extends AppCompatActivity
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 int maxHeight = appBarLayout.getTotalScrollRange();
                 float scrolledPercent = Math.abs(verticalOffset)*1.0F/maxHeight;
-//                Log.d(TAG, "max: " + maxHeight + " offset: " + verticalOffset + " percent: " + scrolledPercent);
-//                autoScrolling(scrolledPercent);
             }
 
         });
@@ -175,9 +174,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.setting) {
             startActivity(new Intent(this, TestActivity.class));
-
+            return true;
+        }
+        if (id == R.id.share) {
+            ShareUtils.share(this);
             return true;
         }
 
