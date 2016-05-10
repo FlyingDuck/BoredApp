@@ -164,7 +164,7 @@ public class GankContentFragment extends BaseLoadingFragment {
                             .setAction("好的", null)
                             .show();
                 } else if (view == titleView) {
-                    startGankDetailActivity(meizhi.publishedAt);
+                    startGankDetailActivity(meizhi);
                 } else if (view == card) {
 
                 }
@@ -428,9 +428,10 @@ public class GankContentFragment extends BaseLoadingFragment {
     }
 
 
-    private void startGankDetailActivity(Date publishedAt) {
+    private void startGankDetailActivity(Gank meizhi) {
         Intent intent = new Intent(getContext(), GankDetailActivity.class);
-        intent.putExtra(GankDetailActivity.EXTRA_GANK_DATE, publishedAt);
+        intent.putExtra(GankDetailActivity.EXTRA_GANK_DATE, meizhi.publishedAt);
+        intent.putExtra(GankDetailActivity.EXTRA_GANK_MEIZHI_URL, meizhi.url);
         startActivity(intent);
     }
 

@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         // toolbar layout
         toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         // toolbarLayout.setTitleEnabled(false);
-        toolbarLayout.setTitle("惊叹号");
+        toolbarLayout.setTitle(getString(R.string.toolbar_name));
         toolbarLayout.setCollapsedTitleGravity(Gravity.CENTER);
         // toolbarLayout.setExpandedTitleGravity(Gravity.);
 
