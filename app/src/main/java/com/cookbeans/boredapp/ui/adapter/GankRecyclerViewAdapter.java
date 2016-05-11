@@ -131,7 +131,7 @@ public class GankRecyclerViewAdapter extends RecyclerView.Adapter<GankRecyclerVi
 //        Log.d(TAG, "onBindViewHolder: position = " + position + " meizi = " + meizhi.url);
         int limit = 60;
         String title = gank.desc.length() > limit ? gank.desc.substring(0, limit) + "..." : gank.desc;
-        String timeText = DateTimeUtils.dateToDefaultStr(gank.publishedAt);
+        String timeText = DateTimeUtils.dateToDefaultDateStr(gank.publishedAt);
 
         viewHolder.meizhi = gank;
         viewHolder.titleView.setText(title);

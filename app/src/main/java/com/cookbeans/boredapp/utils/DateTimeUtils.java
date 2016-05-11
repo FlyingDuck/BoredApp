@@ -13,6 +13,10 @@ public final class DateTimeUtils {
     public static final String DEFAULT_DATE_FORMAT_2 = "yyyy/MM/dd";
 
 
+    public static String dateToDefaultDateStr(Date date) {
+        return dateToStr(date, DEFAULT_DATE_FORMAT);
+    }
+
     public static String dateToDefaultStr(Date date) {
         return dateToStr(date, DEFAULT_DATE_TIME_FORMAT);
     }
