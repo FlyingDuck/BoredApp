@@ -1,7 +1,10 @@
 package com.cookbeans.boredapp.ui.adapter;
 
+import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import java.util.List;
  */
 public class GankDetailTableRecyclerViewAdapter
         extends AnimRecyclerViewAdapter<GankDetailTableRecyclerViewAdapter.GankItemViewHolder> {
+    private static final String TAG = GankDetailTableRecyclerViewAdapter.class.getSimpleName();
 
     private List<Gank> mGankList;
 
@@ -78,16 +82,31 @@ public class GankDetailTableRecyclerViewAdapter
     }
 
 
-    class GankItemViewHolder extends RecyclerView.ViewHolder {
+    class GankItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        View layoutView;
         TextView category;
         TextView gank;
 
 
         public GankItemViewHolder(View itemView) {
             super(itemView);
+            layoutView = itemView.findViewById(R.id.ll_gank_parent);
             category = (TextView) itemView.findViewById(R.id.tv_category);
             gank = (TextView) itemView.findViewById(R.id.tv_title);
+
+            layoutView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Gank gank = mGankList.get(getLayoutPosition());
+            Log.d(TAG, "onClick : " + gank.desc);
+            Snackbar.make(itemView.getRootView(), gank.desc, Snackbar.LENGTH_SHORT)
+                    .setAction("OK", null)
+                    .show();
+//            Intent intent = WebActivity.newIntent(v.getContext(), gank.url, gank.desc);
+//            v.getContext().startActivity(intent);
         }
 
 
