@@ -1,4 +1,4 @@
-package com.cookbeans.boredapp.behavior;
+package com.cookbeans.boredapp.ui.behavior;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
@@ -11,7 +11,7 @@ import android.view.View;
  * *****************************
  * ***    BoredApp   ****
  * *****************************
- * Package : com.cookbeans.boredapp.behavior
+ * Package : com.cookbeans.boredapp.ui.behavior
  * Data   : 16/2/26
  * Auth   : dongsj
  * Desc   :

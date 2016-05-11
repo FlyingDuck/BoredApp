@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cookbeans.boredapp.view;
+package com.cookbeans.boredapp.ui.view;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -32,7 +32,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.cookbeans.boredapp.fragment.SampleSlidingTabsFragment;
+import com.cookbeans.boredapp.ui.fragment.SampleSlidingTabsFragment;
 
 /**
  * To be used with ViewPager to provide a tab indicator component which give constant feedback as to
@@ -51,7 +51,7 @@ import com.cookbeans.boredapp.fragment.SampleSlidingTabsFragment;
  * providing the layout ID of your custom layout.
  */
 public class SlidingTabLayout extends HorizontalScrollView {
-    private static final String TAG = "SlidingTabLayout";
+    private static final String TAG = SlidingTabLayout.class.getSimpleName();
 
     /**
      * Allows complete control over the colors drawn in the tab layout. Set with
@@ -70,9 +70,9 @@ public class SlidingTabLayout extends HorizontalScrollView {
         int getDividerColor(int position);
     }
 
-    private static final int TITLE_OFFSET_DIPS = 24;
-    private static final int TAB_VIEW_PADDING_DIPS = 12;
-    private static final int TAB_VIEW_TEXT_SIZE_SP = 16;
+    private static final int TITLE_OFFSET_DIPS = 40;
+    private static final int TAB_VIEW_PADDING_DIPS = 8;
+    private static final int TAB_VIEW_TEXT_SIZE_SP = 15;
 
     private int mTitleOffset;
 
@@ -346,10 +346,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         public void onPageScrollStateChanged(int state) {
             mScrollState = state;
             if (state == ViewPager.SCROLL_STATE_IDLE) {
-//                changeLayoutBackGround();
 
-//                CharSequence pageTitle = mViewPager.getAdapter().getPageTitle(mCurrentPosition);
-//                mSlidingTabCallBack.changeToolbarTitle(pageTitle.toString());
             }
 
             if (mViewPagerPageChangeListener != null) {

@@ -1,4 +1,4 @@
-package com.cookbeans.boredapp.view;
+package com.cookbeans.boredapp.ui.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -19,11 +19,12 @@ import android.widget.LinearLayout;
  * Desc   :
  */
 public class SlidingTabStrip extends LinearLayout {
+    private static final String TAG = SlidingTabStrip.class.getSimpleName();
 
     private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 5;
     private static final byte DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26;
 
-    private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 5;
+    private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 4;
     private static final int DEFAULT_SELECTED_INDICATOR_COLOR = 0xFF33B5E5;
 
     private static final int DEFAULT_DIVIDER_THICKNESS_DIPS = 0;

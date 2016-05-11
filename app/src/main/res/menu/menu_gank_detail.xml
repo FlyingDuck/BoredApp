@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.cookbeans.boredapp.ui.GankDetailActivity">
+    <item
+        android:id="@+id/menu_share"
+        android:orderInCategory="99"
+        android:title="@string/share"
+        android:icon="@android:drawable/ic_menu_share"
+        app:showAsAction="always"/>
+</menu>

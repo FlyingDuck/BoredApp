@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cookbeans.boredapp.fragment;
+package com.cookbeans.boredapp.ui.fragment;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -27,81 +27,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
-import com.cookbeans.boredapp.MainActivity;
+import com.cookbeans.boredapp.ui.MainActivity;
 import com.cookbeans.boredapp.R;
-import com.cookbeans.boredapp.view.SlidingTabLayout;
+import com.cookbeans.boredapp.ui.model.SampleTabItem;
+import com.cookbeans.boredapp.ui.view.SlidingTabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A basic sample which shows how to use {@link com.cookbeans.boredapp.view.SlidingTabLayout}
+ * A basic sample which shows how to use {@link SlidingTabLayout}
  * to display a custom {@link ViewPager} title strip which gives continuous feedback to the user
  * when scrolling.
  */
 public class SampleSlidingTabsFragment extends Fragment {
-    private static final String TAG = "SlidingTabsFragment";
-
-    /**
-     * This class represents a tab to be displayed by {@link ViewPager} and it's associated
-     * {@link com.cookbeans.boredapp.view.SlidingTabLayout}.
-     */
-    static class SamplePagerItem {
-        private final int mPostion;
-        private final CharSequence mTitle;
-        private final int mIndicatorColor;
-        private final int mDividerColor;
-
-        private final int[] mBGColors;
-
-        SamplePagerItem(int position,
-                        CharSequence title, int indicatorColor, int dividerColor,
-                        int tabBackGroundColor,
-                        int toolbarLayoutBGColor,
-                        int toolbarLayoutScrimColor) {
-            mPostion = position;
-            mTitle = title;
-            mIndicatorColor = indicatorColor;
-            mDividerColor = dividerColor;
-            mBGColors = new int[]{ tabBackGroundColor, toolbarLayoutBGColor,toolbarLayoutScrimColor};
-        }
-
-        /**
-         * @return A new {@link Fragment} to be displayed by a {@link ViewPager}
-         */
-        Fragment createFragment() {
-            return SimpleContentFragment.newInstance(mPostion, mTitle, mIndicatorColor, mDividerColor);
-        }
-
-        /**
-         * @return the title which represents this tab. In this sample this is used directly by
-         * {@link android.support.v4.view.PagerAdapter#getPageTitle(int)}
-         */
-        CharSequence getTitle() {
-            return mTitle;
-        }
-
-        /**
-         * @return the color to be used for indicator on the {@link com.cookbeans.boredapp.view.SlidingTabLayout}
-         */
-        int getIndicatorColor() {
-            return mIndicatorColor;
-        }
-
-        /**
-         * @return the color to be used for right divider on the {@link com.cookbeans.boredapp.view.SlidingTabLayout}
-         */
-        int getDividerColor() {
-            return mDividerColor;
-        }
-
-        int[] getBGColors() {
-            return mBGColors;
-        }
-
-    }
+    private static final String TAG = SampleSlidingTabsFragment.class.getSimpleName();
 
     public interface Callback {
         void changeToolbarLayoutBGColor(int color);
@@ -116,20 +57,21 @@ public class SampleSlidingTabsFragment extends Fragment {
     private SlidingTabLayout mSlidingTabLayout;
 
     /**
-     * A {@link ViewPager} which will be used in conjunction with the {@link com.cookbeans.boredapp.view.SlidingTabLayout} above.
+     * A {@link ViewPager} which will be used in conjunction with the {@link SlidingTabLayout} above.
      */
     private ViewPager mViewPager;
 
     /**
-     * List of {@link SamplePagerItem} which represent this sample's tabs.
+     * List of {@link SampleTabItem} which represent this sample's tabs.
      */
-    private List<SamplePagerItem> mTabs = new ArrayList<SamplePagerItem>();
+    private List<SampleTabItem> mTabs = new ArrayList<SampleTabItem>();
 
     private Callback callback;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.d(TAG, "onAttach");
         if (context instanceof MainActivity) {
             Log.d(TAG, "Simple Sliding Tabs Fragment is started by MainActivity");
             MainActivity activity = (MainActivity) context;
@@ -146,49 +88,38 @@ public class SampleSlidingTabsFragment extends Fragment {
          * Populate our tab list with tabs. Each item contains a title, indicator color and divider
          * color, which are used by {@link SlidingTabLayout}.
          */
-        mTabs.add(new SamplePagerItem(
-                1,
-                "重要声明", // Title
+        mTabs.add(new SampleTabItem(
+                SampleTabItem.POS_GANK,
+                "干货集中营", // Title
                 getResources().getColor(R.color.colorIndicator), // Indicator color
 //                Color.WHITE,
                 Color.GRAY, // Divider color
-                getResources().getColor(R.color.colorSecondary),
+                getResources().getColor(R.color.colorPrimaryDark),
                 getResources().getColor(R.color.colorPrimary),
                 getResources().getColor(R.color.colorPrimaryDark)
         ));
 
-        mTabs.add(new SamplePagerItem(
-                2,
-                "产品列表", // Title
+        mTabs.add(new SampleTabItem(
+                SampleTabItem.POS_DANIU,
+                "大牛俱乐部", // Title
                 getResources().getColor(R.color.colorIndicator), // Indicator color
 //                Color.WHITE,
                 Color.GRAY, // Divider color
-                getResources().getColor(R.color.purpleSecondary),
+                getResources().getColor(R.color.purplePrimaryDark),
                 getResources().getColor(R.color.purplePrimary),
                 getResources().getColor(R.color.purplePrimaryDark)
         ));
 
-        mTabs.add(new SamplePagerItem(
-                3,
-                "联系方式", // Title
+        mTabs.add(new SampleTabItem(
+                SampleTabItem.POS_UNDIFINED_TOO,
+                "就是妹子", // Title
                 getResources().getColor(R.color.colorIndicator), // Indicator color
 //                Color.WHITE,
                 Color.GRAY, // Divider color
-                getResources().getColor(R.color.pinkSecondary),
+                getResources().getColor(R.color.pinkPrimaryDark),
                 getResources().getColor(R.color.pinkPrimary),
                 getResources().getColor(R.color.pinkPrimaryDark)
         ));
-
-
-//        mTabs.add(new SamplePagerItem(
-//                "呜呜", // Title
-//                getResources().getColor(R.color.colorIndicator), // Indicator color
-////                Color.WHITE,
-//                Color.GRAY, // Divider color
-//                getResources().getColor(R.color.deepPurpleSecondary),
-//                getResources().getColor(R.color.deepPurplePrimary),
-//                getResources().getColor(R.color.deepPurplePrimaryDark)
-//        ));
         // END_INCLUDE (populate_tabs)
     }
 
@@ -252,8 +183,8 @@ public class SampleSlidingTabsFragment extends Fragment {
 
     /**
      * The {@link FragmentPagerAdapter} used to display pages in this sample. The individual pages
-     * are instances of {@link SimpleContentFragment} which just display three lines of text. Each page is
-     * created by the relevant {@link SamplePagerItem} for the requested position.
+     * are instances of {@link GankContentFragment} which just display three lines of text. Each page is
+     * created by the relevant {@link SampleTabItem} for the requested position.
      * <p>
      * The important section of this class is the {@link #getPageTitle(int)} method which controls
      * what is displayed in the {@link SlidingTabLayout}.
@@ -267,7 +198,7 @@ public class SampleSlidingTabsFragment extends Fragment {
         /**
          * Return the {@link android.support.v4.app.Fragment} to be displayed at {@code position}.
          * <p>
-         * Here we return the value returned from {@link SamplePagerItem#createFragment()}.
+         * Here we return the value returned from {@link SampleTabItem#createFragment()}.
          */
         @Override
         public Fragment getItem(int i) {
@@ -284,7 +215,7 @@ public class SampleSlidingTabsFragment extends Fragment {
          * Return the title of the item at {@code position}. This is important as what this method
          * returns is what is displayed in the {@link SlidingTabLayout}.
          * <p>
-         * Here we return the value returned from {@link SamplePagerItem#getTitle()}.
+         * Here we return the value returned from {@link SampleTabItem#getTitle()}.
          */
         @Override
         public CharSequence getPageTitle(int position) {
