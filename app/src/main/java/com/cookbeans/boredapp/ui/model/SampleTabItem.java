@@ -3,7 +3,7 @@ package com.cookbeans.boredapp.ui.model;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
-import com.cookbeans.boredapp.ui.fragment.GankContentFragment;
+import com.cookbeans.boredapp.ui.fragment.GankListTableContentFragment;
 import com.cookbeans.boredapp.ui.view.SlidingTabLayout;
 
 /**
@@ -43,15 +43,15 @@ public class SampleTabItem {
         Fragment fragment = null;
         switch (mPostion) {
             case POS_GANK:
-                fragment = GankContentFragment.newInstance(POS_GANK);
+                fragment = GankListTableContentFragment.newInstance(POS_GANK);
                 break;
             case POS_DANIU:
                 // TODO: 16/4/28  还没有想好放什么内容 先和 gank 保持一至
-                fragment = GankContentFragment.newInstance(POS_DANIU);
+                fragment = GankListTableContentFragment.newInstance(POS_DANIU);
                 break;
             case POS_UNDIFINED_TOO:
                 // TODO: 16/4/28  还没有想好放什么内容 先和 gank 保持一至
-                fragment = GankContentFragment.newInstance(POS_UNDIFINED_TOO);
+                fragment = GankListTableContentFragment.newInstance(POS_UNDIFINED_TOO);
                 break;
             default:
                 throw new UnsupportedOperationException("暂未定义其他Fragment");

@@ -28,7 +28,7 @@ import com.cookbeans.boredapp.R;
 import com.cookbeans.boredapp.ui.fragment.SampleSlidingTabsFragment;
 import com.cookbeans.boredapp.utils.ShareUtils;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener ,
         SampleSlidingTabsFragment.Callback{
     private static final String TAG = MainActivity.class.getSimpleName();

@@ -183,7 +183,7 @@ public class SampleSlidingTabsFragment extends Fragment {
 
     /**
      * The {@link FragmentPagerAdapter} used to display pages in this sample. The individual pages
-     * are instances of {@link GankContentFragment} which just display three lines of text. Each page is
+     * are instances of {@link GankListTableContentFragment} which just display three lines of text. Each page is
      * created by the relevant {@link SampleTabItem} for the requested position.
      * <p>
      * The important section of this class is the {@link #getPageTitle(int)} method which controls

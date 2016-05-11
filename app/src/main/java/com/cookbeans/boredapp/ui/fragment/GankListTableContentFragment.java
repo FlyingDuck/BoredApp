@@ -32,22 +32,18 @@ import android.view.ViewGroup;
 import com.cookbeans.boredapp.R;
 import com.cookbeans.boredapp.data.gank.entity.Gank;
 import com.cookbeans.boredapp.data.gank.net.GankResult;
-import com.cookbeans.boredapp.service.ApiFactory;
 import com.cookbeans.boredapp.service.GankApi;
+import com.cookbeans.boredapp.ui.BaseActivity;
 import com.cookbeans.boredapp.ui.GankDetailActivity;
-import com.cookbeans.boredapp.ui.adapter.GankRecyclerViewAdapter;
+import com.cookbeans.boredapp.ui.adapter.GankListTableRecyclerViewAdapter;
 import com.cookbeans.boredapp.ui.func.OnGankMeizhiTouchListener;
-import com.cookbeans.boredapp.utils.TestDatas;
 import com.malinskiy.materialicons.IconDrawable;
 import com.malinskiy.materialicons.Iconify;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import retrofit.RetrofitError;
-import rx.Notification;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
@@ -57,24 +53,18 @@ import rx.functions.Func2;
 import rx.schedulers.Schedulers;
 
 /**
- * Simple Fragment used to display some meaningful content for each page in the sample's
- * {@link android.support.v4.view.ViewPager}.
  *
- * 干货集中营数据Fragement
- * http://gank.io/
  */
-public class GankContentFragment extends BaseLoadingFragment {
-    public static final String TAG = GankContentFragment.class.getSimpleName();
+public class GankListTableContentFragment extends BaseLoadingFragment {
+    public static final String TAG = GankListTableContentFragment.class.getSimpleName();
 
     public static final String KEY_POSITION = "position";
-
-    private final GankApi gankApi = ApiFactory.getGankApiSingleton();
 
 
     private List<Gank> mGankList;
 
     private RecyclerView mRecyclerView;
-    private GankRecyclerViewAdapter mGankRecyclerViewAdapter;
+    private GankListTableRecyclerViewAdapter mGankListTableRecyclerViewAdapter;
     private SwipeRefreshLayout  mSwipeRefreshLayout;
 
     private int hasLoadPage = 0;
@@ -84,14 +74,14 @@ public class GankContentFragment extends BaseLoadingFragment {
 
     private boolean isPullDown = true;
         /**
-         * @return a new instance of {@link GankContentFragment}, adding the parameters into a bundle and
+         * @return a new instance of {@link GankListTableContentFragment}, adding the parameters into a bundle and
          * setting them as arguments.
          */
-    public static GankContentFragment newInstance(int position) {
+    public static GankListTableContentFragment newInstance(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_POSITION, position);
 
-        GankContentFragment fragment = new GankContentFragment();
+        GankListTableContentFragment fragment = new GankListTableContentFragment();
         fragment.setArguments(bundle);
 
         return fragment;
@@ -100,9 +90,11 @@ public class GankContentFragment extends BaseLoadingFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mGankRecyclerViewAdapter = new GankRecyclerViewAdapter(getActivity());
-        mGankRecyclerViewAdapter.setOnGankMeizhiTouchListener(getOnGankMeizhiTouchListener());
+        mGankListTableRecyclerViewAdapter = new GankListTableRecyclerViewAdapter(getActivity());
+        mGankListTableRecyclerViewAdapter.setOnGankMeizhiTouchListener(getOnGankMeizhiTouchListener());
         mGankList = new ArrayList<>();
+
+//        setRetainInstance(true);
     }
 
 //    @Override
@@ -124,7 +116,7 @@ public class GankContentFragment extends BaseLoadingFragment {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_meizhi);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        mRecyclerView.setAdapter(mGankRecyclerViewAdapter);
+        mRecyclerView.setAdapter(mGankListTableRecyclerViewAdapter);
         mRecyclerView.addOnScrollListener(getOnBottomListener());
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
@@ -185,7 +177,7 @@ public class GankContentFragment extends BaseLoadingFragment {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && mLastVisibleItem + 1 == mGankRecyclerViewAdapter.getItemCount()) {
+                        && mLastVisibleItem + 1 == mGankListTableRecyclerViewAdapter.getItemCount()) {
                     isPullDown = false;
                     loadMore();
                 }
@@ -229,8 +221,8 @@ public class GankContentFragment extends BaseLoadingFragment {
 
         Observable
                 .zip( // zip 两个结果集合并
-                        gankApi.getMeizhiData(startPage),
-                        gankApi.getVideoData(startPage),
+                        BaseActivity.gankApi.getMeizhiData(startPage),
+                        BaseActivity.gankApi.getVideoData(startPage),
                         new Func2<GankResult, GankResult, GankResult>() { // 将video中的描述
                             @Override
                             public GankResult call(GankResult meizhiResult, GankResult videoResult) {
@@ -393,7 +385,7 @@ public class GankContentFragment extends BaseLoadingFragment {
 //            isALlLoad = true;
         }
 
-        mGankRecyclerViewAdapter.updateItems(mGankList, hasLoadPage == 1);
+        mGankListTableRecyclerViewAdapter.updateItems(mGankList, hasLoadPage == 1);
     }
 
     private void showNoDataView(){

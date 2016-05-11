@@ -31,8 +31,8 @@ import java.util.List;
  * Auth   : dongsj
  * Desc   :
  */
-public class GankRecyclerViewAdapter extends RecyclerView.Adapter<GankRecyclerViewAdapter.GankItemViewHolder>{
-    private static final String TAG = GankRecyclerViewAdapter.class.getSimpleName();
+public class GankListTableRecyclerViewAdapter extends RecyclerView.Adapter<GankListTableRecyclerViewAdapter.GankItemViewHolder>{
+    private static final String TAG = GankListTableRecyclerViewAdapter.class.getSimpleName();
 
     private static final DecelerateInterpolator DECCELERATE_INTERPOLATOR = new DecelerateInterpolator();
     private static final AccelerateInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
@@ -48,12 +48,12 @@ public class GankRecyclerViewAdapter extends RecyclerView.Adapter<GankRecyclerVi
 
     private OnGankMeizhiTouchListener mOnGankMeizhiTouchListener;
 
-    public GankRecyclerViewAdapter(Context context) {
+    public GankListTableRecyclerViewAdapter(Context context) {
         this.mContext = context;
         this.mGankList = new ArrayList<>();
     }
 
-    public GankRecyclerViewAdapter(Context context, List<Gank> gankList) {
+    public GankListTableRecyclerViewAdapter(Context context, List<Gank> gankList) {
         this.mContext = context;
         this.mGankList = gankList;
     }
