@@ -16,6 +16,7 @@ import retrofit.converter.GsonConverter;
 public class ApiRetrofit {
 
     private final GankApi gankApi;
+    private final DaNiuApi daNiuApi;
 
     // @formatter:off
     final static Gson gson = new GsonBuilder()
@@ -34,13 +35,19 @@ public class ApiRetrofit {
                 .setEndpoint("http://gank.io/api")
                 .setConverter(new GsonConverter(gson));
         RestAdapter gankRestAdapter = builder.build();
-//        builder.setEndpoint("https://leancloud.cn:443/1.1/classes");
-//        RestAdapter drakeetRestAdapter = builder.build();
         gankApi = gankRestAdapter.create(GankApi.class);
+
+        builder.setEndpoint("https://daniu.io/api/v1");
+        RestAdapter daNiuRestAdapter = builder.build();
+        daNiuApi = daNiuRestAdapter.create(DaNiuApi.class);
     }
 
 
     public GankApi getGankApiService() {
         return gankApi;
+    }
+
+    public DaNiuApi getDaNiuApiService() {
+        return daNiuApi;
     }
 }

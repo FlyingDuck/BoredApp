@@ -104,9 +104,9 @@ public class SampleSlidingTabsFragment extends Fragment {
                 getResources().getColor(R.color.colorIndicator), // Indicator color
 //                Color.WHITE,
                 Color.GRAY, // Divider color
-                getResources().getColor(R.color.purplePrimaryDark),
-                getResources().getColor(R.color.purplePrimary),
-                getResources().getColor(R.color.purplePrimaryDark)
+                getResources().getColor(R.color.deepPurplePrimaryDark),
+                getResources().getColor(R.color.deepPurplePrimary),
+                getResources().getColor(R.color.deepPurplePrimaryDark)
         ));
 
         mTabs.add(new SampleTabItem(
@@ -182,7 +182,7 @@ public class SampleSlidingTabsFragment extends Fragment {
 
     /**
      * The {@link FragmentPagerAdapter} used to display pages in this sample. The individual pages
-     * are instances of {@link GankListTableContentFragment} which just display three lines of text. Each page is
+     * are instances of {@link GankListTableFragment} which just display three lines of text. Each page is
      * created by the relevant {@link SampleTabItem} for the requested position.
      * <p>
      * The important section of this class is the {@link #getPageTitle(int)} method which controls

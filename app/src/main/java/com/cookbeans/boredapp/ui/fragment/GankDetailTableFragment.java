@@ -30,16 +30,16 @@ import rx.functions.Func1;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link GankDetailTableContentFragment.OnFragmentInteractionListener} interface
+ * {@link GankDetailTableFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link GankDetailTableContentFragment#newInstance} factory method to
+ * Use the {@link GankDetailTableFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
  * 干货详情页面
  *
  */
-public class GankDetailTableContentFragment extends Fragment {
-    private static final String TAG = GankDetailTableContentFragment.class.getSimpleName();
+public class GankDetailTableFragment extends Fragment {
+    private static final String TAG = GankDetailTableFragment.class.getSimpleName();
 
     private static final String ARG_YEAR = "year";
     private static final String ARG_MONTH = "month";
@@ -60,12 +60,12 @@ public class GankDetailTableContentFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public GankDetailTableContentFragment() {
+    public GankDetailTableFragment() {
         // Required empty public constructor
     }
 
-    public static GankDetailTableContentFragment newInstance(int year, int month, int day) {
-        GankDetailTableContentFragment fragment = new GankDetailTableContentFragment();
+    public static GankDetailTableFragment newInstance(int year, int month, int day) {
+        GankDetailTableFragment fragment = new GankDetailTableFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_YEAR, year);
         args.putInt(ARG_MONTH, month);

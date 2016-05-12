@@ -55,8 +55,8 @@ import rx.schedulers.Schedulers;
 /**
  *
  */
-public class GankListTableContentFragment extends BaseLoadingFragment {
-    public static final String TAG = GankListTableContentFragment.class.getSimpleName();
+public class GankListTableFragment extends BaseLoadingFragment {
+    public static final String TAG = GankListTableFragment.class.getSimpleName();
 
     public static final String KEY_POSITION = "position";
 
@@ -74,14 +74,14 @@ public class GankListTableContentFragment extends BaseLoadingFragment {
 
     private boolean isPullDown = true;
         /**
-         * @return a new instance of {@link GankListTableContentFragment}, adding the parameters into a bundle and
+         * @return a new instance of {@link GankListTableFragment}, adding the parameters into a bundle and
          * setting them as arguments.
          */
-    public static GankListTableContentFragment newInstance(int position) {
+    public static GankListTableFragment newInstance(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_POSITION, position);
 
-        GankListTableContentFragment fragment = new GankListTableContentFragment();
+        GankListTableFragment fragment = new GankListTableFragment();
         fragment.setArguments(bundle);
 
         return fragment;
@@ -104,9 +104,9 @@ public class GankListTableContentFragment extends BaseLoadingFragment {
     // return inflater.inflate(R.layout.view_pager_gank_item, container, false);
 //    }
 
-    @Override
+    @Override // from BaseLoadingFragment
     View onCreateContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.view_pager_gank_item, null);
+        return inflater.inflate(R.layout.fragment_gank_page, null);
     }
 
 
@@ -130,7 +130,6 @@ public class GankListTableContentFragment extends BaseLoadingFragment {
         });
 
         Bundle args = getArguments();
-
         if (args != null) {
             int position = args.getInt(KEY_POSITION);
             Log.d(TAG, "onViewCreate postion : " + position);
@@ -260,6 +259,7 @@ public class GankListTableContentFragment extends BaseLoadingFragment {
                             }
                         }
                 )
+                .cache()
                 .subscribeOn(Schedulers.computation())
                 .doOnNext(  //
                         new Action1<List<Gank>>() {

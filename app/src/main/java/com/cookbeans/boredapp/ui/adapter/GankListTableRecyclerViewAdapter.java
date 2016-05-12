@@ -53,11 +53,6 @@ public class GankListTableRecyclerViewAdapter extends RecyclerView.Adapter<GankL
         this.mGankList = new ArrayList<>();
     }
 
-    public GankListTableRecyclerViewAdapter(Context context, List<Gank> gankList) {
-        this.mContext = context;
-        this.mGankList = gankList;
-    }
-
     @Override
     public GankItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_gank_meizhi_item, parent, false);
@@ -80,8 +75,8 @@ public class GankListTableRecyclerViewAdapter extends RecyclerView.Adapter<GankL
         return mGankList.size();
     }
 
-    public void setOnGankMeizhiTouchListener(OnGankMeizhiTouchListener onGankMeizhiTouchListener) {
-        this.mOnGankMeizhiTouchListener = onGankMeizhiTouchListener;
+    public void setOnGankMeizhiTouchListener(OnGankMeizhiTouchListener listener) {
+        this.mOnGankMeizhiTouchListener = listener;
     }
 
 

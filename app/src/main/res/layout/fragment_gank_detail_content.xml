@@ -6,7 +6,7 @@
     android:paddingBottom="10dp"
     android:id="@+id/fragment_gank_detail_conten"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.fragment.GankDetailTableContentFragment"
+    tools:context=".ui.fragment.GankDetailTableFragment"
     tools:showIn="@layout/activity_gank_detail">
 
     <android.support.v7.widget.RecyclerView

@@ -5,19 +5,30 @@ package com.cookbeans.boredapp.service;
  */
 public class ApiFactory {
     protected static final Object monitor = new Object();
-    private static GankApi sGankApi = null;
-//    private static DaniuApi sDaniutSingleton = null;
+    private static GankApi gankApiInstance = null;
+    private static DaNiuApi daNiuApiInstance = null;
 
 
     public static GankApi getGankApiSingleton() {
-        if (null == sGankApi) {
+        if (null == gankApiInstance) {
             synchronized (monitor) {
-                if (null == sGankApi) {
-                    sGankApi = new ApiRetrofit().getGankApiService();
+                if (null == gankApiInstance) {
+                    gankApiInstance = new ApiRetrofit().getGankApiService();
                 }
             }
         }
-        return sGankApi;
+        return gankApiInstance;
+    }
+
+    public static DaNiuApi getDaNiuApiInstance() {
+        if (null == daNiuApiInstance) {
+            synchronized (monitor) {
+                if (null == daNiuApiInstance) {
+                    daNiuApiInstance = new ApiRetrofit().getDaNiuApiService();
+                }
+            }
+        }
+        return daNiuApiInstance;
     }
 
 }

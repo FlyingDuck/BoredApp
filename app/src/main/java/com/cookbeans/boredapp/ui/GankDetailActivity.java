@@ -13,8 +13,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.cookbeans.boredapp.R;
-import com.cookbeans.boredapp.ui.fragment.GankDetailTableContentFragment;
-import com.cookbeans.boredapp.ui.fragment.SampleSlidingTabsFragment;
+import com.cookbeans.boredapp.ui.fragment.GankDetailTableFragment;
 import com.cookbeans.boredapp.utils.DateTimeUtils;
 
 import java.util.Calendar;
@@ -78,10 +77,10 @@ public class GankDetailActivity extends BaseActivity {
 
         if (null == savedInstanceState) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            GankDetailTableContentFragment gankDetailTableContentFragment =
-                    GankDetailTableContentFragment.newInstance(
+            GankDetailTableFragment gankDetailTableFragment =
+                    GankDetailTableFragment.newInstance(
                             calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
-            transaction.replace(R.id.fragment_gank_detail_conten, gankDetailTableContentFragment);
+            transaction.replace(R.id.fragment_gank_detail_conten, gankDetailTableFragment);
             transaction.commit();
         }
 
