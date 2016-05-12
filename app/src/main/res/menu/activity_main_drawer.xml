@@ -4,13 +4,21 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@android:drawable/star_big_off"
-            android:title="收藏" />
+            android:checked="true"
+            android:id="@+id/nav_list"
+            android:icon="@drawable/ic_menu_all"
+            android:title="@string/menu_title_all" />
+
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@android:drawable/ic_dialog_info"
-            android:title="关于" />
+            android:id="@+id/nav_favmeizhi"
+            android:icon="@drawable/ic_menu_favmeizhi"
+            android:title="@string/menu_title_favmeizhi" />
+
+        <item
+            android:id="@+id/nav_fav"
+            android:icon="@drawable/ic_menu_favourite"
+            android:title="@string/menu_title_favourite" />
+
         <!--<item-->
             <!--android:id="@+id/nav_slideshow"-->
             <!--android:icon="@drawable/ic_menu_slideshow"-->
@@ -21,17 +29,21 @@
             <!--android:title="Tools" />-->
     </group>
 
-    <!--<item android:title="Communicate">-->
-        <!--<menu>-->
-            <!--<item-->
-                <!--android:id="@+id/nav_share"-->
-                <!--android:icon="@drawable/ic_menu_share"-->
-                <!--android:title="Share" />-->
-            <!--<item-->
-                <!--android:id="@+id/nav_send"-->
-                <!--android:icon="@drawable/ic_menu_send"-->
-                <!--android:title="Send" />-->
-        <!--</menu>-->
-    <!--</item>-->
+    <item android:title="喝咖啡">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share_to"
+                android:title="@string/menu_title_share" />
+            <item
+                android:id="@+id/nav_feedback"
+                android:icon="@drawable/ic_menu_feedback"
+                android:title="@string/menu_title_feedback" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_menu_about"
+                android:title="@string/menu_title_about" />
+        </menu>
+    </item>
 
 </menu>

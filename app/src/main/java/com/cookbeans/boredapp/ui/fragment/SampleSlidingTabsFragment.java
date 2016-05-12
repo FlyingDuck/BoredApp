@@ -47,7 +47,6 @@ public class SampleSlidingTabsFragment extends Fragment {
     public interface Callback {
         void changeToolbarLayoutBGColor(int color);
         void changeToolbarLayoutScrimColor(int color);
-        void changeToolbarTitle(String title);
     }
 
     /**

@@ -1,6 +1,5 @@
 package com.cookbeans.boredapp.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -13,7 +12,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,7 +24,6 @@ import android.widget.LinearLayout;
 
 import com.cookbeans.boredapp.R;
 import com.cookbeans.boredapp.ui.fragment.SampleSlidingTabsFragment;
-import com.cookbeans.boredapp.utils.ShareUtils;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener ,
@@ -174,14 +171,10 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.setting) {
-            startActivity(new Intent(this, TestActivity.class));
-            return true;
-        }
-        if (id == R.id.share) {
-            ShareUtils.share(this);
-            return true;
-        }
+//        if (id == R.id.share) {
+//            ShareUtils.share(this);
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -192,9 +185,9 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } /*else if (id == R.id.nav_gallery) {
+        /*if (id == R.id.nav_camera) {
+             Handle the camera action
+        } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -223,9 +216,4 @@ public class MainActivity extends BaseActivity
         toolbarLayout.setContentScrimColor(color);
     }
 
-    @Override
-    public void changeToolbarTitle(String title) {
-        Log.d(TAG, "change toolbar title ground color");
-        // TODO
-    }
 }
