@@ -37,7 +37,7 @@ public class ApiRetrofit {
         RestAdapter gankRestAdapter = builder.build();
         gankApi = gankRestAdapter.create(GankApi.class);
 
-        builder.setEndpoint("https://daniu.io/api/v1");
+        builder.setEndpoint("http://daniu.io/api/v1");
         RestAdapter daNiuRestAdapter = builder.build();
         daNiuApi = daNiuRestAdapter.create(DaNiuApi.class);
     }
