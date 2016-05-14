@@ -19,8 +19,8 @@
             android:id="@+id/img_meizhi_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/item_default_img"/>
+            android:scaleType="centerCrop"/>
+            <!--android:src="@drawable/item_default_img"/>-->
 
         <TextView
             android:id="@+id/tv_gank_author"

@@ -76,8 +76,8 @@ public class DaNiuListTableRecyclerViewAdapter
 
         Glide.with(context)
                 .load(daNiuGank.meizhiUrl)
-//                .placeholder(R.drawable.meizhi_default)
-//                .error(R.drawable.error_image)
+                .placeholder(R.drawable.meizhi_default)
+                .error(R.drawable.error_image)
                 .centerCrop()
                 .into(holder.meizhiImg);
 

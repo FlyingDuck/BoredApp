@@ -164,6 +164,7 @@ public class DaNiuListTableFragment extends BaseLoadingFragment{
         isALlLoad = false;
         gankPage = 0;
         meizhiPage = 0;
+        mDaNiuList.clear();
         loadData(1, 1);
     }
 
