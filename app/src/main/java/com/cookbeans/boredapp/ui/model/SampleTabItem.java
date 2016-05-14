@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 
 import com.cookbeans.boredapp.ui.fragment.DaNiuListTableFragment;
 import com.cookbeans.boredapp.ui.fragment.GankListTableFragment;
+import com.cookbeans.boredapp.ui.fragment.MeizhiListTableFragment;
 import com.cookbeans.boredapp.ui.view.SlidingTabLayout;
 
 /**
@@ -16,8 +17,8 @@ import com.cookbeans.boredapp.ui.view.SlidingTabLayout;
  */
 public class SampleTabItem {
     public static final int POS_GANK             =   1;  // gank
-    public static final int POS_DANIU            =   2;  // todo 大牛俱乐部
-    public static final int POS_UNDIFINED_TOO    =   3;  // todo 未确定
+    public static final int POS_DANIU            =   2;  // 大牛俱乐部
+    public static final int POS_UNDIFINED_TOO    =   3;  // 就是妹纸
 
     private int             mPostion;       // 标签位置
     private CharSequence    mTitle;         // 标签标题
@@ -47,12 +48,10 @@ public class SampleTabItem {
                 fragment = GankListTableFragment.newInstance(POS_GANK);
                 break;
             case POS_DANIU:
-                // TODO: 16/4/28  还没有想好放什么内容 先和 gank 保持一至
                 fragment = DaNiuListTableFragment.newInstance(POS_DANIU);
                 break;
             case POS_UNDIFINED_TOO:
-                // TODO: 16/4/28  还没有想好放什么内容 先和 gank 保持一至
-                fragment = GankListTableFragment.newInstance(POS_UNDIFINED_TOO);
+                fragment = MeizhiListTableFragment.newInstance(POS_UNDIFINED_TOO);
                 break;
             default:
                 throw new UnsupportedOperationException("暂未定义其他Fragment");

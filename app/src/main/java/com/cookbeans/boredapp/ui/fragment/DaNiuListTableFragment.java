@@ -16,12 +16,9 @@ import com.cookbeans.boredapp.R;
 import com.cookbeans.boredapp.data.daniu.DaNiuGank;
 import com.cookbeans.boredapp.data.daniu.entity.DaNiu;
 import com.cookbeans.boredapp.data.daniu.net.DaNiuResult;
-import com.cookbeans.boredapp.data.gank.entity.Gank;
 import com.cookbeans.boredapp.service.DaNiuApi;
-import com.cookbeans.boredapp.service.GankApi;
 import com.cookbeans.boredapp.ui.BaseActivity;
 import com.cookbeans.boredapp.ui.adapter.DaNiuListTableRecyclerViewAdapter;
-import com.cookbeans.boredapp.ui.func.OnDaNiuMeizhiTouchListener;
 import com.malinskiy.materialicons.IconDrawable;
 import com.malinskiy.materialicons.Iconify;
 
