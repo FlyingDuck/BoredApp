@@ -1,6 +1,8 @@
 package com.cookbeans.boredapp.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cookbeans.boredapp.BoredApplication;
 import com.cookbeans.boredapp.R;
+import com.cookbeans.boredapp.data.MeizhiOnly;
 import com.cookbeans.boredapp.data.gank.entity.Gank;
 import com.cookbeans.boredapp.data.gank.net.GankResult;
 import com.cookbeans.boredapp.service.GankApi;
@@ -21,9 +25,14 @@ import com.cookbeans.boredapp.ui.BaseActivity;
 import com.cookbeans.boredapp.ui.GankDetailActivity;
 import com.cookbeans.boredapp.ui.adapter.GankListTableRecyclerViewAdapter;
 import com.cookbeans.boredapp.ui.func.OnGankMeizhiTouchListener;
+import com.litesuits.orm.db.model.ConflictAlgorithm;
 import com.malinskiy.materialicons.IconDrawable;
 import com.malinskiy.materialicons.Iconify;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +50,8 @@ import rx.schedulers.Schedulers;
  */
 public class GankListTableFragment extends BaseLoadingFragment {
     public static final String TAG = GankListTableFragment.class.getSimpleName();
+
+    private final OkHttpClient client = new OkHttpClient();
 
     public static final String KEY_POSITION = "position";
 
@@ -250,7 +261,8 @@ public class GankListTableFragment extends BaseLoadingFragment {
                             @Override
                             public void call(List<Gank> meizhiList) {
                                 Log.d(TAG, "Observable doOnNext : 保存数据到数据库");
-                                // TODO: 16/5/8 保存妹纸数据到数据库
+                                // 保存妹纸数据到数据库
+                                saveMeizhiOnly(meizhiList);
                             }
                         }
                 )
@@ -409,6 +421,38 @@ public class GankListTableFragment extends BaseLoadingFragment {
         intent.putExtra(GankDetailActivity.EXTRA_GANK_DATE, meizhi.publishedAt);
         intent.putExtra(GankDetailActivity.EXTRA_GANK_MEIZHI_URL, meizhi.url);
         startActivity(intent);
+    }
+
+
+    private void saveMeizhiOnly(List<Gank> meizhiList) {
+        Log.i(TAG, "save meizhi only size = " + meizhiList.size());
+        List<MeizhiOnly> meizhiOnlies = new ArrayList<>(meizhiList.size());
+        for (Gank meizhi : meizhiList) {
+            MeizhiOnly meizhiOnly = new MeizhiOnly();
+            meizhiOnly.desc = meizhi.desc;
+            meizhiOnly.url = meizhi.url;
+            try {
+                Point size = new Point();
+                loadImageForSize(meizhiOnly.url, size);
+                meizhiOnly.height = size.y;
+                meizhiOnly.width = size.x;
+                Log.d(TAG, "h = "+meizhiOnly.height +" w = " + meizhiOnly.width);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e(TAG, e.getMessage());
+            }
+            meizhiOnlies.add(meizhiOnly);
+        }
+        BoredApplication.dbInstance.insert(meizhiOnlies, ConflictAlgorithm.Replace);
+    }
+
+    public void loadImageForSize(String url, Point measured) throws IOException {
+        Response response = client.newCall(new Request.Builder().url(url).build()).execute();
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(response.body().byteStream(), null, options);
+        measured.x = options.outWidth;
+        measured.y = options.outHeight;
     }
 
 }

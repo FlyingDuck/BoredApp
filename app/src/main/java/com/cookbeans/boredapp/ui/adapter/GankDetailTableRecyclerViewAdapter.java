@@ -1,6 +1,7 @@
 package com.cookbeans.boredapp.ui.adapter;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cookbeans.boredapp.R;
+import com.cookbeans.boredapp.data.daniu.DaNiuGank;
 import com.cookbeans.boredapp.data.gank.entity.Gank;
 import com.cookbeans.boredapp.utils.StringStyleUtils;
 
@@ -105,6 +107,14 @@ public class GankDetailTableRecyclerViewAdapter
             Snackbar.make(itemView.getRootView(), gank.desc, Snackbar.LENGTH_SHORT)
                     .setAction("OK", null)
                     .show();
+
+            Intent intent= new Intent();
+            intent.setAction("android.intent.action.VIEW");
+            Uri content_url = Uri.parse(gank.url);
+            intent.setData(content_url);
+            v.getContext().startActivity(intent);
+
+            // TODO: 16/5/20 使用内置浏览
 //            Intent intent = WebActivity.newIntent(v.getContext(), gank.url, gank.desc);
 //            v.getContext().startActivity(intent);
         }

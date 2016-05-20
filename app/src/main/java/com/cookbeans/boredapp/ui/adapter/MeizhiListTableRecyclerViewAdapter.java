@@ -8,13 +8,10 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.cookbeans.boredapp.R;
 import com.cookbeans.boredapp.data.MeizhiOnly;
-import com.cookbeans.boredapp.ui.func.OnDaNiuMeizhiTouchListener;
 import com.cookbeans.boredapp.ui.view.RadioImageView;
 import com.cookbeans.boredapp.utils.Utils;
 

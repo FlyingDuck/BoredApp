@@ -312,26 +312,6 @@ public class DaNiuListTableFragment extends BaseLoadingFragment{
         }
         showContent();
 
-//        if (isPullDown) {
-//            if (hasNew(daNiuGankList)) {
-//                mDaNiuList.addAll(0, daNiuGankList);
-//            } else {
-//                Snackbar.make(mRecyclerView,"已经是最新的了",Snackbar.LENGTH_SHORT)
-//                        .setAction("知道了",null)
-//                        .show();
-//            }
-//        } else {
-//            Log.d(TAG, "is not pulldown");
-//            if (hasMore(daNiuGankList)) {
-//                Log.d(TAG, "has more");
-//                mDaNiuList.addAll(daNiuGankList);
-//            } else {
-//                Log.d(TAG, "no more");
-//                isALlLoad = true;
-//            }
-//            isLoadMore = false;
-//        }
-
         mDaNiuList.addAll(daNiuGankList);
         if(daNiuGankList.size() == DaNiuApi.LOAD_LIMIT){
             gankPage++;
@@ -350,33 +330,6 @@ public class DaNiuListTableFragment extends BaseLoadingFragment{
         List<Integer> skipIds = new ArrayList<>();
         showEmpty(emptyDrawable, "数据列表为空", "没有拿到数据哎，请等一下再来玩干货吧", skipIds);
     }
-
-    private boolean hasNew(List<DaNiuGank> newMeizhiList) {
-        if (null == newMeizhiList || 0 == newMeizhiList.size()) {
-            return false;
-        }
-        if (0 == mDaNiuList.size()) {
-            return true;
-        }
-
-        DaNiuGank currentFirstMeizhi = mDaNiuList.get(0);
-        DaNiuGank newFirstMeizhi = newMeizhiList.get(0);
-        return -1 == currentFirstMeizhi.publishedAt.compareTo(newFirstMeizhi.publishedAt);
-    }
-
-    private boolean hasMore(List<DaNiuGank> historyMeizhiList) {
-        if (0 == historyMeizhiList.size()) {
-            return false;
-        }
-
-        DaNiuGank currentLastMeizhi = mDaNiuList.get(mDaNiuList.size()-1);
-        DaNiuGank historyLastMeizhi = historyMeizhiList.get(historyMeizhiList.size()-1);
-
-        return 1 == currentLastMeizhi.publishedAt.compareTo(historyLastMeizhi.publishedAt);
-    }
-
-
-
 
 
 }

@@ -1,5 +1,7 @@
 package com.cookbeans.boredapp.data.gank.entity;
 
+import com.cookbeans.boredapp.data.Soul;
+
 import java.util.Date;
 
 /**
