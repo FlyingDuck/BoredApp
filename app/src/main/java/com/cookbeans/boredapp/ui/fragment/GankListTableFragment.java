@@ -209,7 +209,7 @@ public class GankListTableFragment extends BaseLoadingFragment {
         loadData(1);
     }
 
-    private void loadData(int startPage){
+    private void loadData(final int startPage){
         Log.d(TAG, "loadData startPage : " + startPage);
         mSwipeRefreshLayout.setRefreshing(true);
 
@@ -262,7 +262,7 @@ public class GankListTableFragment extends BaseLoadingFragment {
                             public void call(List<Gank> meizhiList) {
                                 Log.d(TAG, "Observable doOnNext : 保存数据到数据库");
                                 // 保存妹纸数据到数据库
-                                saveMeizhiOnly(meizhiList);
+                                saveMeizhiOnly(startPage, meizhiList);
                             }
                         }
                 )
@@ -424,26 +424,30 @@ public class GankListTableFragment extends BaseLoadingFragment {
     }
 
 
-    private void saveMeizhiOnly(List<Gank> meizhiList) {
-        Log.i(TAG, "save meizhi only size = " + meizhiList.size());
-        List<MeizhiOnly> meizhiOnlies = new ArrayList<>(meizhiList.size());
-        for (Gank meizhi : meizhiList) {
-            MeizhiOnly meizhiOnly = new MeizhiOnly();
-            meizhiOnly.desc = meizhi.desc;
-            meizhiOnly.url = meizhi.url;
-            try {
-                Point size = new Point();
-                loadImageForSize(meizhiOnly.url, size);
-                meizhiOnly.height = size.y;
-                meizhiOnly.width = size.x;
-                Log.d(TAG, "h = "+meizhiOnly.height +" w = " + meizhiOnly.width);
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.e(TAG, e.getMessage());
+    private void saveMeizhiOnly(int startPage, List<Gank> meizhiList) {
+        long total = BoredApplication.dbInstance.queryCount(MeizhiOnly.class);
+        long dbPage = total/ GankApi.LOAD_LIMIT;
+        if (dbPage < startPage) {
+            Log.i(TAG, "total = " + total + " dbPage = " + dbPage);
+            List<MeizhiOnly> meizhiOnlies = new ArrayList<>(meizhiList.size());
+            for (Gank meizhi : meizhiList) {
+                MeizhiOnly meizhiOnly = new MeizhiOnly();
+                meizhiOnly.desc = meizhi.desc;
+                meizhiOnly.url = meizhi.url;
+                try {
+                    Point size = new Point();
+                    loadImageForSize(meizhiOnly.url, size);
+                    meizhiOnly.height = size.y;
+                    meizhiOnly.width = size.x;
+                    Log.d(TAG, "h = " + meizhiOnly.height + " w = " + meizhiOnly.width);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e(TAG, e.getMessage());
+                }
+                meizhiOnlies.add(meizhiOnly);
             }
-            meizhiOnlies.add(meizhiOnly);
+            BoredApplication.dbInstance.insert(meizhiOnlies, ConflictAlgorithm.Replace);
         }
-        BoredApplication.dbInstance.insert(meizhiOnlies, ConflictAlgorithm.Replace);
     }
 
     public void loadImageForSize(String url, Point measured) throws IOException {

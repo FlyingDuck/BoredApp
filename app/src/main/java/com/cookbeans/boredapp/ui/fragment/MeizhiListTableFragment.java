@@ -2,7 +2,6 @@ package com.cookbeans.boredapp.ui.fragment;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -15,14 +14,6 @@ import android.widget.Toast;
 import com.cookbeans.boredapp.BoredApplication;
 import com.cookbeans.boredapp.R;
 import com.cookbeans.boredapp.data.MeizhiOnly;
-import com.cookbeans.boredapp.data.daniu.DaNiuGank;
-import com.cookbeans.boredapp.data.daniu.entity.DaNiu;
-import com.cookbeans.boredapp.data.daniu.net.DaNiuResult;
-import com.cookbeans.boredapp.data.gank.entity.Gank;
-import com.cookbeans.boredapp.data.gank.net.GankResult;
-import com.cookbeans.boredapp.service.DaNiuApi;
-import com.cookbeans.boredapp.service.GankApi;
-import com.cookbeans.boredapp.ui.BaseActivity;
 import com.cookbeans.boredapp.ui.adapter.MeizhiListTableRecyclerViewAdapter;
 import com.litesuits.orm.db.assit.QueryBuilder;
 import com.malinskiy.materialicons.IconDrawable;
@@ -30,14 +21,6 @@ import com.malinskiy.materialicons.Iconify;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit.RetrofitError;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func2;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by dongshujin on 16/5/14.
@@ -141,7 +124,7 @@ public class MeizhiListTableFragment extends BaseLoadingFragment
 
     private void loadMore(){
         if(isALlLoad){
-            Toast.makeText(getActivity(), "全部加载完毕", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "全部加载完毕", Toast.LENGTH_SHORT).show();
             return;
         }
         if(isLoadMore)return;
@@ -160,7 +143,8 @@ public class MeizhiListTableFragment extends BaseLoadingFragment
     private void loadData(int startPage){
         QueryBuilder query = new QueryBuilder(MeizhiOnly.class);
         query.appendOrderAscBy("publishedAt");
-        query.limit(startPage, pageSize);
+        int start = (startPage - 1) * pageSize;
+        query.limit(start, pageSize);
         List<MeizhiOnly> meizhis = BoredApplication.dbInstance.query(query);
         disposeResults(meizhis);
     }

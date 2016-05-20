@@ -64,8 +64,8 @@ public class MeizhiListTableRecyclerViewAdapter
 
         Glide.with(context)
                 .load(meizhiOnly.url)
-//                .placeholder(R.drawable.meizhi_default)
-//                .error(R.drawable.error_image)
+                .placeholder(R.drawable.meizhi_default)
+                .error(R.drawable.error_image)
 //                .centerCrop()
                 .into(holder.meizhiImg);
 
